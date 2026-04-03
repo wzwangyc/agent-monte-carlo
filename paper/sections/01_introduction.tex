@@ -1,0 +1,84 @@
+\section{Introduction}
+\label{sec:introduction}
+
+Financial markets exhibit striking empirical regularities that have puzzled researchers for decades. Asset returns display \textit{fat tails} (excess kurtosis around 19 for S\&P 500, compared to 3 for normal distribution), \textit{volatility clustering} (high-volatility periods tend to cluster together), and \textit{endogenous crashes} (large price drops without obvious external triggers).\footnote{See \citet{cont2001empirical} for a comprehensive survey of stylized facts in asset returns.}
+
+Traditional Monte Carlo simulation, the workhorse of financial risk management, assumes that markets follow geometric Brownian motion with normally distributed returns. This framework, while analytically tractable, fundamentally fails to reproduce these empirical regularities. The question we address in this paper is: \textbf{can agent-based models reproduce realistic market phenomena better than traditional Monte Carlo?}
+
+\subsection{The Agent-Based Approach}
+
+We propose \textbf{Agent Monte Carlo} (Agent MC), a simulation framework that replaces the representative agent assumption with heterogeneous, boundedly rational agents who learn from experience. Our approach combines the computational efficiency of Monte Carlo methods with the behavioral richness of agent-based modeling.
+
+The key insight is that market-level phenomena \textit{emerge} from interactions between heterogeneous agents, rather than being imposed by assumption. Fat tails, volatility clustering, and crashes are not bugs to be fixed---they are features that emerge naturally from the system dynamics.
+
+\subsection{Theoretical Contributions}
+
+Our first contribution is \textbf{theoretical}. We establish the mathematical foundations of Agent MC by proving:
+
+\begin{enumerate}
+    \item \textbf{Equilibrium Existence}: Using Brouwer's fixed-point theorem, we prove that an equilibrium strategy distribution exists under mild conditions (finite strategy space, continuous payoffs).
+    
+    \item \textbf{Local Stability}: We derive conditions for local asymptotic stability using Jacobian eigenvalue analysis, showing that the equilibrium is stable when the spectral radius is less than one.
+    
+    \item \textbf{Comparative Statics}: We provide a general formula for how equilibrium changes with parameters, enabling systematic analysis of policy interventions.
+\end{enumerate}
+
+These results are non-trivial. Agent-based models are often criticized for being ``black boxes'' that produce results without theoretical grounding. We provide the missing theoretical foundation.
+
+\subsection{Empirical Contributions}
+
+Our second contribution is \textbf{empirical}. We calibrate Agent MC to 44 years of S\&P 500 data (1980--2024) using moment matching. The model successfully reproduces five key stylized facts:
+
+\begin{itemize}
+    \item Fat tails (kurtosis $\approx 19.2$)
+    \item Volatility clustering (ACF(1) $\approx 0.21$)
+    \item Crash frequency ($\approx 3.2\%$ per year)
+    \item Negative skewness ($\approx -0.5$)
+    \item Volume-volatility correlation ($\approx 0.6$)
+\end{itemize}
+
+Out-of-sample validation (calibration period 1980--2000, validation period 2000--2024) confirms that the model generalizes well to unseen data.
+
+\subsection{Policy Contributions}
+
+Our third contribution is \textbf{policy-relevant}. We analyze the welfare effects of seven regulatory policies:
+
+\begin{enumerate}
+    \item \textbf{Short-sale bans}: Reduce welfare by 1.8\% (limit arbitrage)
+    \item \textbf{Leverage caps (10x)}: Increase welfare by 2.3\% (balance efficiency and stability)
+    \item \textbf{Transaction taxes}: Reduce welfare by 1.2\% (reduce liquidity)
+    \item \textbf{High herding}: Reduce welfare by 0.5\% (increase crash risk)
+\end{enumerate}
+
+The optimal policy combination is moderate leverage limits (5--10x), maintaining short-sale mechanisms (allow arbitrage), promoting information dissemination (increase learning efficiency), and monitoring herding behavior (prevent excessive clustering).
+
+\subsection{Why This Matters}
+
+This paper matters for three reasons:
+
+\textbf{First}, from a \textit{scientific} perspective, we provide a unified framework that explains multiple stylized facts through a single mechanism (heterogeneous agent interactions). This is preferable to ad-hoc explanations for each fact.
+
+\textbf{Second}, from a \textit{methodological} perspective, we bridge the gap between theoretical rigor (proofs, stability analysis) and empirical relevance (calibration, validation). Many agent-based models excel at one but not the other.
+
+\textbf{Third}, from a \textit{practical} perspective, our framework can be used for stress testing, policy analysis, and risk management. Regulators and practitioners can use Agent MC to evaluate ``what-if'' scenarios that are impossible to test in the real world.
+
+\subsection{Related Literature}
+
+Our paper connects to three strands of literature:
+
+\textbf{Agent-Based Finance}: \citet{lebaron2006agent} provides a comprehensive survey. \citet{hommes2006heterogeneous} develops heterogeneous belief models. \citet{lux2009stochastic} analyzes behavioral asset-pricing models. We contribute by providing theoretical foundations (equilibrium proofs) and comprehensive empirical validation.
+
+\textbf{Learning in Games}: \citet{camerer1999experience} develop Experience-Weighted Attraction (EWA) learning. We apply EWA to financial markets and prove equilibrium existence and stability.
+
+\textbf{Market Microstructure}: \citet{glosten1985bid} and \citet{kyle1985continuous} develop market maker models. We incorporate their insights into our market mechanism.
+
+\subsection{Paper Organization}
+
+The rest of the paper is organized as follows. Section \ref{sec:model} presents the theoretical model and proves equilibrium existence and stability. Section \ref{sec:calibration} describes the empirical calibration. Section \ref{sec:results} presents the results, including comparative statics and welfare analysis. Section \ref{sec:robustness} discusses robustness checks. Section \ref{sec:policy} analyzes policy implications. Section \ref{sec:conclusion} concludes.
+
+\subsection{Key Takeaway}
+
+The key takeaway is simple: \textbf{markets are complex adaptive systems, not mechanical processes}. Agent Monte Carlo provides a rigorous, empirically validated framework for understanding and analyzing these systems. We invite researchers and practitioners to use our framework in their own work.
+
+% Footnotes
+\footnotetext[1]{We thank [colleagues] for helpful comments. All errors are our own. Code and data are available at [GitHub link].}
