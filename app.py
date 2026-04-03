@@ -301,7 +301,8 @@ def create_comparison_chart(traditional_paths: np.ndarray,
     # Traditional MC paths
     for idx in sample_idx:
         fig.add_trace(
-            go.Scatter(y=traditional_paths[idx], mode='lines', line=dict(width=0.8, color='#4facfe', opacity=0.3),
+            go.Scatter(y=traditional_paths[idx], mode='lines', 
+                      line=dict(width=0.8, color='rgba(79, 172, 254, 0.3)'),
                       hoverinfo='skip', showlegend=False),
             row=1, col=1
         )
@@ -309,7 +310,8 @@ def create_comparison_chart(traditional_paths: np.ndarray,
     # Agent MC paths
     for idx in sample_idx:
         fig.add_trace(
-            go.Scatter(y=agent_paths[idx], mode='lines', line=dict(width=0.8, color='#f5576c', opacity=0.3),
+            go.Scatter(y=agent_paths[idx], mode='lines', 
+                      line=dict(width=0.8, color='rgba(245, 87, 108, 0.3)'),
                       hoverinfo='skip', showlegend=False),
             row=1, col=2
         )
@@ -447,7 +449,8 @@ def create_volatility_clustering_chart(agent_paths: np.ndarray) -> go.Figure:
     # Sample path
     sample_idx = 0
     fig.add_trace(
-        go.Scatter(y=agent_paths[sample_idx], mode='lines', line=dict(color='#f5576c', width=2),
+        go.Scatter(y=agent_paths[sample_idx], mode='lines', 
+                  line=dict(color='rgba(245, 87, 108, 1)', width=2),
                   name='Price'),
         row=1, col=1
     )
@@ -455,7 +458,7 @@ def create_volatility_clustering_chart(agent_paths: np.ndarray) -> go.Figure:
     # Rolling volatility
     fig.add_trace(
         go.Scatter(y=rolling_vol[sample_idx][window-1:], mode='lines', 
-                  line=dict(color='#667eea', width=2), name='Volatility'),
+                  line=dict(color='rgba(102, 126, 234, 1)', width=2), name='Volatility'),
         row=2, col=1
     )
     
