@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 Agent Monte Carlo - Streamlit Web Application
 
@@ -7,6 +7,8 @@ Full Visualization: Agent MC vs Traditional MC Comparison
 
 Usage:
     streamlit run app.py
+
+Version: 2026-04-03 - Emoji removed for encoding compatibility
 """
 
 import streamlit as st
@@ -22,13 +24,13 @@ from plotly.subplots import make_subplots
 
 # Page configuration
 st.set_page_config(
-    page_title="Agent Monte Carlo 馃",
-    page_icon="馃",
+    page_title="Agent Monte Carlo",
+    page_icon="A",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for鏋佽嚧 styling
+# Custom CSS for styling
 st.markdown("""
 <style>
     .main-header {
@@ -187,7 +189,7 @@ def generate_agent_mc_paths(n_paths: int = 1000, n_days: int = 252,
     Agent MC features:
     - Heterogeneous agents (retail, institutions, hedge funds)
     - Behavioral biases (herding, overconfidence, loss aversion)
-    - Fat tails (kurtosis 鈮?19)
+    - Fat tails (kurtosis ~19)
     - Volatility clustering (GARCH-like)
     - Endogenous crashes
     """
@@ -479,15 +481,15 @@ def main():
     """Main Streamlit application."""
     
     # Header with gradient
-    st.markdown('<h1 class="main-header">馃 Agent Monte Carlo</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 class="main-header">Agent Monte Carlo</h1>', unsafe_allow_html=True)
     st.markdown('<p class="sub-header">Next-Generation Risk Simulation with Emergent Market Phenomena</p>', 
                 unsafe_allow_html=True)
     
-    # Sidebar - API Configuration
-    st.sidebar.header("鈿欙笍 Settings")
+    # Sidebar - Settings
+    st.sidebar.header("Settings")
     
     # Mode selection
-    st.sidebar.markdown("### 馃攽 Access Mode")
+    st.sidebar.markdown("### Access Mode")
     
     use_own_api = st.sidebar.checkbox(
         "Use my own API key (Pro Mode)",
@@ -500,7 +502,7 @@ def main():
         st.rerun()
     
     if st.session_state.is_pro_mode:
-        st.sidebar.markdown('<div class="pro-tier-badge">馃殌 PRO MODE</div>', unsafe_allow_html=True)
+        st.sidebar.markdown('<div class="pro-tier-badge">PRO MODE</div>', unsafe_allow_html=True)
         
         api_key = st.sidebar.text_input(
             "API Key",
@@ -511,23 +513,23 @@ def main():
         
         if api_key:
             st.session_state.api_key = api_key
-            st.sidebar.success("鉁?API key saved!")
+            st.sidebar.success("API key saved!")
         else:
-            st.sidebar.warning("鈿狅笍 Please enter API key for Pro Mode")
+            st.sidebar.warning("Please enter API key for Pro Mode")
         
         st.sidebar.markdown("""
         **Pro Mode Benefits:**
-        - 鉁?Unlimited simulations
-        - 鉁?Custom data sources
-        - 鉁?Advanced analytics
-        - 鉁?Export reports
-        - 鉁?Priority support
+        - Unlimited simulations
+        - Custom data sources
+        - Advanced analytics
+        - Export reports
+        - Priority support
         """)
     else:
         reset_daily_counter()
         can_proceed, remaining = check_rate_limit()
         
-        st.sidebar.markdown('<div class="free-tier-badge">馃啌 FREE TIER</div>', unsafe_allow_html=True)
+        st.sidebar.markdown('<div class="free-tier-badge">FREE TIER</div>', unsafe_allow_html=True)
         
         st.sidebar.progress(
             st.session_state.simulation_count / st.session_state.daily_limit,
@@ -535,28 +537,28 @@ def main():
         )
         
         if can_proceed:
-            st.sidebar.success(f"鉁?{remaining} attempts remaining today")
+            st.sidebar.success(f"{remaining} attempts remaining today")
         else:
-            st.sidebar.error("鉂?Daily limit reached. Try again tomorrow or switch to Pro Mode!")
+            st.sidebar.error("Daily limit reached. Try again tomorrow or switch to Pro Mode!")
         
         st.sidebar.markdown("""
         **Free Tier Includes:**
-        - 鉁?10 simulations/day
-        - 鉁?Full MC comparison
-        - 鉁?Interactive charts
-        - 鉁?No API key needed
+        - 10 simulations/day
+        - Full MC comparison
+        - Interactive charts
+        - No API key needed
         """)
     
     st.sidebar.markdown("---")
     
     # Main simulation controls
-    st.markdown("### 馃帥锔?Simulation Parameters")
+    st.markdown("### Simulation Parameters")
     
     col1, col2, col3, col4 = st.columns(4)
     
     with col1:
         initial_capital = st.number_input(
-            "馃挵 Initial Capital",
+            "Initial Capital",
             value=100000,
             min_value=1000,
             step=1000
@@ -564,7 +566,7 @@ def main():
     
     with col2:
         n_simulations = st.slider(
-            "馃搳 Number of Paths",
+            "Number of Paths",
             min_value=100,
             max_value=10000,
             value=1000,
@@ -573,7 +575,7 @@ def main():
     
     with col3:
         time_horizon = st.slider(
-            "馃搮 Time Horizon (days)",
+            "Time Horizon (days)",
             min_value=30,
             max_value=252,
             value=252,
@@ -582,7 +584,7 @@ def main():
     
     with col4:
         volatility = st.number_input(
-            "馃搱 Annual Volatility",
+            "Annual Volatility",
             value=20.0,
             min_value=5.0,
             max_value=100.0,
@@ -591,22 +593,22 @@ def main():
         ) / 100
     
     # Run button
-    run_button = st.button("馃殌 Run Dual Simulation", type="primary", width='stretch')
+    run_button = st.button("Run Dual Simulation", type="primary", width='stretch')
     
     if run_button:
         can_proceed, remaining = check_rate_limit()
         
         if st.session_state.is_pro_mode and not st.session_state.api_key:
-            st.error("鉂?Please enter your API key first!")
+            st.error("Please enter your API key first!")
         elif not can_proceed and not st.session_state.is_pro_mode:
-            st.error("鉂?Daily limit reached! Switch to Pro Mode for unlimited simulations.")
+            st.error("Daily limit reached! Switch to Pro Mode for unlimited simulations.")
         else:
             # Progress bar
             progress_bar = st.progress(0)
             status_text = st.empty()
             
             # Run Traditional MC
-            status_text.text("馃攧 Running Traditional Monte Carlo (GBM)...")
+            status_text.text("Running Traditional Monte Carlo (GBM)...")
             traditional_paths = generate_traditional_mc_paths(
                 n_paths=n_simulations,
                 n_days=time_horizon,
@@ -617,7 +619,7 @@ def main():
             progress_bar.progress(25)
             
             # Run Agent MC
-            status_text.text("馃 Running Agent-Based Monte Carlo...")
+            status_text.text("Running Agent-Based Monte Carlo...")
             agent_paths = generate_agent_mc_paths(
                 n_paths=n_simulations,
                 n_days=time_horizon,
@@ -628,7 +630,7 @@ def main():
             progress_bar.progress(50)
             
             # Calculate metrics
-            status_text.text("馃搳 Calculating risk metrics...")
+            status_text.text("Calculating risk metrics...")
             trad_metrics = calculate_metrics(traditional_paths, initial_capital)
             agent_metrics = calculate_metrics(agent_paths, initial_capital)
             progress_bar.progress(75)
@@ -643,18 +645,15 @@ def main():
             
             increment_simulation_count()
             progress_bar.progress(100)
-            status_text.text("鉁?Simulation complete!")
+            status_text.text("Simulation complete!")
             
             st.success(
-                f"鉁?Simulation completed! " 
+                f"Simulation completed! " 
                 f"({'Unlimited in Pro Mode' if st.session_state.is_pro_mode else f'{remaining - 1} attempts remaining'})"
             )
             
-            # Display key metrics comparison
-            st.markdown("### 馃搳 Key Metrics Comparison")
-            
             # Key metrics comparison
-            st.markdown("### 馃搳 Key Metrics Comparison")
+            st.markdown("### Key Metrics Comparison")
             
             # Row 1: Risk metrics
             col1, col2, col3, col4 = st.columns(4)
@@ -730,14 +729,14 @@ def main():
                 st.markdown("**Volatility Clustering**")
                 st.metric(
                     label="Traditional MC",
-                    value="鉂?None",
-                    delta="Agent MC: 鉁?Yes (GARCH)",
+                    value="None",
+                    delta="Agent MC: Yes (GARCH)",
                     delta_color="normal"
                 )
             
             # Main comparison chart
             st.markdown("---")
-            st.markdown("### 馃搱 Full Visualization Comparison")
+            st.markdown("### Full Visualization Comparison")
             
             comparison_chart = create_comparison_chart(traditional_paths, agent_paths)
             st.plotly_chart(comparison_chart, width='stretch')
@@ -746,18 +745,18 @@ def main():
             col1, col2 = st.columns(2)
             
             with col1:
-                st.markdown("### 馃幆 Risk Profile Comparison")
+                st.markdown("### Risk Profile Comparison")
                 radar_chart = create_risk_metrics_comparison(trad_metrics, agent_metrics)
                 st.plotly_chart(radar_chart, width='stretch')
             
             with col2:
-                st.markdown("### 馃搳 Volatility Clustering (Agent MC)")
+                st.markdown("### Volatility Clustering (Agent MC)")
                 vol_chart = create_volatility_clustering_chart(agent_paths)
                 st.plotly_chart(vol_chart, width='stretch')
             
             # Detailed metrics table
             st.markdown("---")
-            st.markdown("### 馃搵 Detailed Metrics Table")
+            st.markdown("### Detailed Metrics Table")
             
             metrics_df = pd.DataFrame({
                 'Metric': [
@@ -797,22 +796,22 @@ def main():
             
             # Key insights
             st.markdown("---")
-            st.markdown("### 馃挕 Key Insights")
+            st.markdown("### Key Insights")
             
             col1, col2, col3 = st.columns(3)
             
             with col1:
                 st.info("""
-                **馃幆 Fat Tails**
+                **Fat Tails**
                 
-                Agent MC generates kurtosis 鈮?19, 
+                Agent MC generates kurtosis ~19, 
                 matching empirical data. Traditional MC 
                 assumes normal distribution (kurtosis = 3).
                 """)
             
             with col2:
                 st.info("""
-                **馃搳 Volatility Clustering**
+                **Volatility Clustering**
                 
                 Agent MC shows GARCH-like effects 
                 with high-vol periods clustering together. 
@@ -821,19 +820,19 @@ def main():
             
             with col3:
                 st.info("""
-                **鈿狅笍 Tail Risk Accuracy**
+                **Tail Risk Accuracy**
                 
                 Agent MC VaR accuracy: 96.4%
                 Traditional MC VaR accuracy: 27.1%
                 
-                **3.6脳 improvement!**
+                **3.6x improvement!**
                 """)
     
     # Footer
     st.markdown("---")
     st.markdown("""
     <div style="text-align: center; color: #666; padding: 2rem;">
-        <p><strong>馃 Agent Monte Carlo</strong> | Enterprise-Grade Risk Simulation</p>
+        <p><strong>Agent Monte Carlo</strong> | Enterprise-Grade Risk Simulation</p>
         <p>Built with Streamlit | Powered by Agent-Based Modeling</p>
     </div>
     """, unsafe_allow_html=True)
@@ -841,4 +840,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
