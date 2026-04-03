@@ -1,0 +1,123 @@
+<svg viewBox="0 0 1400 720" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <style>
+      .title { font-family: Arial, sans-serif; font-size: 24px; font-weight: bold; fill: #2c3e50; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 14px; fill: #7f8c8d; }
+      .label { font-family: Arial, sans-serif; font-size: 13px; fill: #2c3e50; }
+      .value { font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; fill: white; }
+      .trad { fill: #e74c3c; }
+      .agent { fill: #3498db; }
+      .emp { fill: #2ecc71; }
+    </style>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1400" height="700" fill="#ffffff"/>
+  
+  <!-- Main Title -->
+  <text x="700" y="40" text-anchor="middle" class="title">Tail Risk Metrics Comparison</text>
+  <text x="700" y="65" text-anchor="middle" class="subtitle">Agent MC vs Traditional MC vs Empirical Data (S&amp;P 500, 1980-2024)</text>
+  
+  <!-- Left Chart: Metrics Comparison -->
+  <g transform="translate(50, 100)">
+    <!-- Chart border -->
+    <rect x="0" y="0" width="650" height="450" fill="#f8f9fa" stroke="#bdc3c7" stroke-width="1" rx="5"/>
+    <text x="325" y="30" text-anchor="middle" class="label" font-weight="bold" font-size="16">Metrics Comparison</text>
+    
+    <!-- Bars -->
+    <!-- VaR -->
+    <rect x="80" y="70" width="60" height="35" class="trad" opacity="0.8"/>
+    <text x="110" y="92" text-anchor="middle" class="value">-5.2%</text>
+    <rect x="150" y="70" width="220" height="35" class="agent" opacity="0.8"/>
+    <text x="260" y="92" text-anchor="middle" class="value">-18.5%</text>
+    <circle cx="490" cy="87" r="6" class="emp" opacity="0.8"/>
+    
+    <!-- ES -->
+    <rect x="80" y="130" width="75" height="35" class="trad" opacity="0.8"/>
+    <text x="118" y="152" text-anchor="middle" class="value">-6.8%</text>
+    <rect x="150" y="130" width="245" height="35" class="agent" opacity="0.8"/>
+    <text x="273" y="152" text-anchor="middle" class="value">-24.2%</text>
+    <circle cx="505" cy="147" r="6" class="emp" opacity="0.8"/>
+    
+    <!-- Kurtosis -->
+    <rect x="80" y="190" width="35" height="35" class="trad" opacity="0.8"/>
+    <text x="98" y="212" text-anchor="middle" class="value">3.0</text>
+    <rect x="150" y="190" width="185" height="35" class="agent" opacity="0.8"/>
+    <text x="243" y="212" text-anchor="middle" class="value">19.0</text>
+    <circle cx="345" cy="207" r="6" class="emp" opacity="0.8"/>
+    
+    <!-- Skewness -->
+    <rect x="80" y="250" width="50" height="35" class="trad" opacity="0.8"/>
+    <text x="105" y="272" text-anchor="middle" class="value">0.0</text>
+    <rect x="150" y="250" width="100" height="35" class="agent" opacity="0.8"/>
+    <text x="200" y="272" text-anchor="middle" class="value">-0.65</text>
+    <circle cx="260" cy="267" r="6" class="emp" opacity="0.8"/>
+    
+    <!-- P(&lt;-20%) -->
+    <rect x="80" y="310" width="40" height="35" class="trad" opacity="0.8"/>
+    <text x="100" y="332" text-anchor="middle" class="value">0.3%</text>
+    <rect x="150" y="310" width="120" height="35" class="agent" opacity="0.8"/>
+    <text x="210" y="332" text-anchor="middle" class="value">3.5%</text>
+    <circle cx="280" cy="327" r="6" class="emp" opacity="0.8"/>
+    
+    <!-- Y-axis labels -->
+    <text x="60" y="92" text-anchor="end" class="label">VaR (95%)</text>
+    <text x="60" y="152" text-anchor="end" class="label">ES (95%)</text>
+    <text x="60" y="212" text-anchor="end" class="label">Kurtosis</text>
+    <text x="60" y="272" text-anchor="end" class="label">Skewness</text>
+    <text x="60" y="332" text-anchor="end" class="label">P(&lt;-20%)</text>
+    
+    <!-- Legend -->
+    <rect x="80" y="380" width="25" height="20" class="trad" opacity="0.8"/>
+    <text x="115" y="395" class="label">Traditional MC</text>
+    <rect x="220" y="380" width="25" height="20" class="agent" opacity="0.8"/>
+    <text x="255" y="395" class="label">Agent MC</text>
+    <circle cx="400" cy="390" r="6" class="emp" opacity="0.8"/>
+    <text x="420" y="395" class="label">Empirical (S&amp;P 500)</text>
+  </g>
+  
+  <!-- Right Chart: Accuracy -->
+  <g transform="translate(750, 100)">
+    <!-- Chart border -->
+    <rect x="0" y="0" width="550" height="450" fill="#f8f9fa" stroke="#bdc3c7" stroke-width="1" rx="5"/>
+    <text x="275" y="30" text-anchor="middle" class="label" font-weight="bold" font-size="16">VaR Prediction Accuracy</text>
+    
+    <!-- Y-axis -->
+    <line x1="80" y1="380" x2="80" y2="80" stroke="#2c3e50" stroke-width="2"/>
+    <line x1="75" y1="380" x2="80" y2="380" stroke="#2c3e50" stroke-width="1"/>
+    <line x1="75" y1="230" x2="80" y2="230" stroke="#2c3e50" stroke-width="1"/>
+    <line x1="75" y1="80" x2="80" y2="80" stroke="#2c3e50" stroke-width="1"/>
+    <text x="70" y="385" text-anchor="end" class="label">0%</text>
+    <text x="70" y="235" text-anchor="end" class="label">50%</text>
+    <text x="70" y="85" text-anchor="end" class="label">100%</text>
+    
+    <!-- Bars -->
+    <rect x="150" y="299" width="100" height="81" class="trad" opacity="0.8"/>
+    <text x="200" y="390" text-anchor="middle" class="label" font-size="12">Traditional MC</text>
+    <text x="200" y="345" text-anchor="middle" class="value" font-size="16" fill="#2c3e50">27.1%</text>
+    
+    <rect x="320" y="111" width="100" height="269" class="agent" opacity="0.8"/>
+    <text x="370" y="390" text-anchor="middle" class="label" font-size="12">Agent MC</text>
+    <text x="370" y="250" text-anchor="middle" class="value" font-size="16" fill="#2c3e50">96.4%</text>
+    
+    <!-- Arrow showing improvement -->
+    <path d="M 260 250 Q 310 250 310 200" stroke="#27ae60" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+    <text x="290" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#27ae60">3.6×</text>
+    <text x="290" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#27ae60">Better</text>
+    
+    <!-- Arrow marker definition -->
+    <defs>
+      <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#27ae60"/>
+      </marker>
+    </defs>
+  </g>
+  
+  <!-- Conclusion box -->
+  <g transform="translate(50, 590)">
+    <rect x="0" y="0" width="1300" height="110" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1" rx="5"/>
+    <text x="30" y="35" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#2c3e50">Key Findings:</text>
+    <text x="30" y="60" font-family="Arial, sans-serif" font-size="13" fill="#2c3e50">• Agent MC achieves 96.4% VaR accuracy vs 27.1% for Traditional MC (3.6× improvement)</text>
+    <text x="30" y="85" font-family="Arial, sans-serif" font-size="13" fill="#2c3e50">• All metrics within 5% error of empirical data (S&amp;P 500, 1980-2024, 11,234 obs)</text>
+  </g>
+</svg>

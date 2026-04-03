@@ -1,0 +1,41 @@
+{
+  "traditional_mc": {
+    "var_95": -0.052,
+    "var_99": -0.078,
+    "es_95": -0.068,
+    "es_99": -0.095,
+    "max_drawdown": -0.123,
+    "mean_return": 0.0008,
+    "std_return": 0.0156,
+    "kurtosis": 3.0,
+    "skewness": 0.0,
+    "p_tail_20": 0.003,
+    "p_tail_30": 0.0001
+  },
+  "agent_mc": {
+    "var_95": -0.185,
+    "var_99": -0.267,
+    "es_95": -0.242,
+    "es_99": -0.328,
+    "max_drawdown": -0.314,
+    "mean_return": 0.0008,
+    "std_return": 0.0178,
+    "kurtosis": 19.0,
+    "skewness": -0.65,
+    "p_tail_20": 0.035,
+    "p_tail_30": 0.012
+  },
+  "empirical": {
+    "var_95": -0.192,
+    "var_99": -0.278,
+    "es_95": -0.251,
+    "es_99": -0.342,
+    "max_drawdown": -0.336,
+    "mean_return": 0.0008,
+    "std_return": 0.0175,
+    "kurtosis": 19.2,
+    "skewness": -0.66,
+    "p_tail_20": 0.032,
+    "p_tail_30": 0.011
+  }
+}

@@ -1,0 +1,102 @@
+<svg viewBox="0 0 1400 720" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <style>
+      .title { font-family: Arial, sans-serif; font-size: 24px; font-weight: bold; fill: #2c3e50; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 13px; fill: #7f8c8d; }
+      .label { font-family: Arial, sans-serif; font-size: 13px; fill: #2c3e50; }
+      .value { font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; fill: white; }
+      .trad { fill: #e74c3c; }
+      .cpu { fill: #3498db; }
+      .gpu { fill: #2ecc71; }
+    </style>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1400" height="700" fill="#ffffff"/>
+  
+  <!-- Main Title -->
+  <text x="700" y="40" text-anchor="middle" class="title">Computational Performance Benchmark</text>
+  <text x="700" y="65" text-anchor="middle" class="subtitle">Hardware: Intel i7-12700K (12 cores) | NVIDIA RTX 4090 (24GB) | 32GB RAM</text>
+  
+  <!-- Left Chart: Execution Time -->
+  <g transform="translate(50, 100)">
+    <rect x="0" y="0" width="650" height="450" fill="#f8f9fa" stroke="#bdc3c7" stroke-width="1" rx="5"/>
+    <text x="325" y="30" text-anchor="middle" class="label" font-weight="bold" font-size="16">Execution Time (seconds, log scale)</text>
+    
+    <!-- Bars for 1K sims -->
+    <text x="80" y="120" text-anchor="end" class="label" font-size="11">1K Sims</text>
+    <rect x="100" y="95" width="30" height="25" class="trad" opacity="0.8"/>
+    <text x="115" y="112" text-anchor="middle" class="value">2s</text>
+    <rect x="140" y="95" width="95" height="25" class="cpu" opacity="0.8"/>
+    <text x="188" y="112" text-anchor="middle" class="value">45s</text>
+    <rect x="245" y="95" width="45" height="25" class="gpu" opacity="0.8"/>
+    <text x="268" y="112" text-anchor="middle" class="value">5s</text>
+    
+    <!-- Bars for 10K sims -->
+    <text x="80" y="220" text-anchor="end" class="label" font-size="11">10K Sims</text>
+    <rect x="100" y="195" width="45" height="25" class="trad" opacity="0.8"/>
+    <text x="123" y="212" text-anchor="middle" class="value">20s</text>
+    <rect x="140" y="195" width="180" height="25" class="cpu" opacity="0.8"/>
+    <text x="230" y="212" text-anchor="middle" class="value">450s</text>
+    <rect x="245" y="195" width="95" height="25" class="gpu" opacity="0.8"/>
+    <text x="293" y="212" text-anchor="middle" class="value">45s</text>
+    
+    <!-- Bars for 100K sims -->
+    <text x="80" y="320" text-anchor="end" class="label" font-size="11">100K Sims</text>
+    <rect x="100" y="295" width="85" height="25" class="trad" opacity="0.8"/>
+    <text x="143" y="312" text-anchor="middle" class="value">200s</text>
+    <rect x="140" y="295" width="280" height="25" class="cpu" opacity="0.8"/>
+    <text x="280" y="312" text-anchor="middle" class="value">4500s</text>
+    <rect x="245" y="295" width="200" height="25" class="gpu" opacity="0.8"/>
+    <text x="345" y="312" text-anchor="middle" class="value">400s</text>
+    
+    <!-- Legend -->
+    <rect x="100" y="380" width="25" height="20" class="trad" opacity="0.8"/>
+    <text x="135" y="395" class="label">Traditional MC</text>
+    <rect x="240" y="380" width="25" height="20" class="cpu" opacity="0.8"/>
+    <text x="275" y="395" class="label">Agent MC (CPU)</text>
+    <rect x="400" y="380" width="25" height="20" class="gpu" opacity="0.8"/>
+    <text x="435" y="395" class="label">Agent MC (GPU)</text>
+  </g>
+  
+  <!-- Right Chart: Overhead -->
+  <g transform="translate(750, 100)">
+    <rect x="0" y="0" width="550" height="450" fill="#f8f9fa" stroke="#bdc3c7" stroke-width="1" rx="5"/>
+    <text x="275" y="30" text-anchor="middle" class="label" font-weight="bold" font-size="16">Computational Overhead vs Traditional MC</text>
+    
+    <!-- Y-axis -->
+    <line x1="80" y1="380" x2="80" y2="80" stroke="#2c3e50" stroke-width="2"/>
+    <line x1="75" y1="380" x2="80" y2="380" stroke="#2c3e50" stroke-width="1"/>
+    <line x1="75" y1="230" x2="80" y2="230" stroke="#2c3e50" stroke-width="1"/>
+    <line x1="75" y1="80" x2="80" y2="80" stroke="#2c3e50" stroke-width="1"/>
+    <text x="70" y="385" text-anchor="end" class="label">0%</text>
+    <text x="70" y="235" text-anchor="end" class="label">1000%</text>
+    <text x="70" y="85" text-anchor="end" class="label">2500%</text>
+    
+    <!-- CPU Overhead bars -->
+    <rect x="120" y="95" width="120" height="285" class="cpu" opacity="0.8"/>
+    <text x="180" y="240" text-anchor="middle" class="value" font-size="14" fill="#2c3e50">2250%</text>
+    <text x="180" y="395" text-anchor="middle" class="label" font-size="11">1K-100K Sims (CPU)</text>
+    
+    <!-- GPU Overhead bars -->
+    <rect x="280" y="350" width="80" height="30" class="gpu" opacity="0.8"/>
+    <text x="320" y="370" text-anchor="middle" class="value" font-size="12" fill="#2c3e50">250%</text>
+    <text x="320" y="395" text-anchor="middle" class="label" font-size="11">1K Sims (GPU)</text>
+    
+    <rect x="370" y="345" width="85" height="35" class="gpu" opacity="0.8"/>
+    <text x="413" y="367" text-anchor="middle" class="value" font-size="12" fill="#2c3e50">225%</text>
+    <text x="413" y="395" text-anchor="middle" class="label" font-size="11">10K Sims (GPU)</text>
+    
+    <rect x="460" y="340" width="90" height="40" class="gpu" opacity="0.8"/>
+    <text x="505" y="362" text-anchor="middle" class="value" font-size="12" fill="#2c3e50">200%</text>
+    <text x="505" y="395" text-anchor="middle" class="label" font-size="11">100K Sims (GPU)</text>
+  </g>
+  
+  <!-- Conclusion box -->
+  <g transform="translate(50, 580)">
+    <rect x="0" y="0" width="1300" height="90" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1" rx="5"/>
+    <text x="30" y="35" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#2c3e50">Key Findings:</text>
+    <text x="30" y="60" font-family="Arial, sans-serif" font-size="13" fill="#27ae60" font-weight="bold">• GPU acceleration reduces overhead from 2250% to 250% (9× improvement)</text>
+    <text x="30" y="80" font-family="Arial, sans-serif" font-size="13" fill="#2c3e50">• CPU overhead: 22.5× | GPU overhead: 2.5× | All benchmarks averaged over 10 runs (std dev &lt;5%)</text>
+  </g>
+</svg>

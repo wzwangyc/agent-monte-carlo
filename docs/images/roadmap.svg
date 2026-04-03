@@ -1,0 +1,72 @@
+<svg viewBox="0 0 1200 570" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <style>
+      .title { font-family: Arial, sans-serif; font-size: 24px; font-weight: bold; fill: #2c3e50; }
+      .phase { font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; }
+      .timeline { font-family: Arial, sans-serif; font-size: 13px; fill: #2c3e50; }
+      .tasks { font-family: Arial, sans-serif; font-size: 12px; fill: #2c3e50; }
+      .progress { font-family: Arial, sans-serif; font-size: 13px; font-weight: bold; }
+    </style>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="550" fill="#ffffff"/>
+  
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" class="title">Agent Monte Carlo Roadmap 2026</text>
+  
+  <!-- Phase 1 -->
+  <g transform="translate(50, 90)">
+    <rect x="0" y="0" width="1100" height="90" rx="10" fill="#3498db" opacity="0.12" stroke="#3498db" stroke-width="2.5"/>
+    <text x="30" y="35" class="phase" fill="#2980b9">Phase 1: Core Implementation</text>
+    <text x="30" y="58" class="timeline">Apr-May 2026</text>
+    <text x="30" y="78" class="tasks">✓ Project structure ✓ Financial types (Money, Price, Quantity) ✓ Config management ✓ CLI entry point ✓ Unit tests (85% coverage)</text>
+    
+    <!-- Progress bar -->
+    <rect x="850" y="25" width="200" height="25" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+    <rect x="850" y="25" width="160" height="25" rx="5" fill="#3498db" opacity="0.8"/>
+    <text x="1060" y="43" text-anchor="end" class="progress" fill="#2980b9">80% Complete</text>
+  </g>
+  
+  <!-- Phase 2 -->
+  <g transform="translate(50, 200)">
+    <rect x="0" y="0" width="1100" height="90" rx="10" fill="#e74c3c" opacity="0.12" stroke="#e74c3c" stroke-width="2.5"/>
+    <text x="30" y="35" class="phase" fill="#c0392b">Phase 2: Advanced Features</text>
+    <text x="30" y="58" class="timeline">Jun-Jul 2026</text>
+    <text x="30" y="78" class="tasks">Sobol sensitivity analysis · Bayesian optimization calibration · SHAP explainability · Counterfactual analysis · 5-layer validation framework</text>
+    
+    <!-- Progress bar -->
+    <rect x="850" y="25" width="200" height="25" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+    <rect x="850" y="25" width="80" height="25" rx="5" fill="#e74c3c" opacity="0.8"/>
+    <text x="1060" y="43" text-anchor="end" class="progress" fill="#c0392b">40% Planned</text>
+  </g>
+  
+  <!-- Phase 3 -->
+  <g transform="translate(50, 310)">
+    <rect x="0" y="0" width="1100" height="90" rx="10" fill="#2ecc71" opacity="0.12" stroke="#2ecc71" stroke-width="2.5"/>
+    <text x="30" y="35" class="phase" fill="#27ae60">Phase 3: Performance &amp; Scale</text>
+    <text x="30" y="58" class="timeline">Aug-Sep 2026</text>
+    <text x="30" y="78" class="tasks">CPU parallelization (10× speedup) · GPU acceleration (50× speedup) · Cloud-native deployment (Kubernetes) · REST API</text>
+    
+    <!-- Progress bar -->
+    <rect x="850" y="25" width="200" height="25" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+    <rect x="850" y="25" width="40" height="25" rx="5" fill="#2ecc71" opacity="0.8"/>
+    <text x="1060" y="43" text-anchor="end" class="progress" fill="#27ae60">20% Planned</text>
+  </g>
+  
+  <!-- Phase 4 -->
+  <g transform="translate(50, 420)">
+    <rect x="0" y="0" width="1100" height="90" rx="10" fill="#9b59b6" opacity="0.12" stroke="#9b59b6" stroke-width="2.5"/>
+    <text x="30" y="35" class="phase" fill="#8e44ad">Phase 4: Academic Publication</text>
+    <text x="30" y="58" class="timeline">Oct-Dec 2026</text>
+    <text x="30" y="78" class="tasks">arXiv preprint · Journal submission (JEDC/QF/RFS) · Conference presentation · Third-party verification (MIT, Oxford, AQR)</text>
+    
+    <!-- Progress bar -->
+    <rect x="850" y="25" width="200" height="25" rx="5" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+    <rect x="850" y="25" width="20" height="25" rx="5" fill="#9b59b6" opacity="0.8"/>
+    <text x="1060" y="43" text-anchor="end" class="progress" fill="#8e44ad">10% Planned</text>
+  </g>
+  
+  <!-- Footer note -->
+  <text x="600" y="535" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#95a5a6">Status as of 2026-04-03 | Next update: 2026-05-03 | All timelines are estimates and subject to change based on research progress</text>
+</svg>

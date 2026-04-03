@@ -1,0 +1,31 @@
+# Code Owners for Agent Monte Carlo
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owners (require approval for all PRs)
+* @agent-mc-maintainers
+
+# Core modules require maintainer approval
+/src/agent_mc/ @agent-mc-maintainers
+/src/agent_mc/simulator.py @agent-mc-maintainers
+/src/agent_mc/calibration.py @agent-mc-maintainers
+/src/agent_mc/validation.py @agent-mc-maintainers
+
+# Financial logic requires senior review
+/src/agent_mc/core/ @senior-dev
+/src/agent_mc/risk/ @senior-dev
+
+# Security-sensitive files
+/.env* @security-team
+/secrets/ @security-team
+*.key @security-team
+
+# Documentation
+/docs/ @docs-team
+*.md @docs-team
+
+# CI/CD workflows
+/.github/workflows/ @devops-team
+
+# Dependencies
+/pyproject.toml @agent-mc-maintainers
+/poetry.lock @agent-mc-maintainers

@@ -1,0 +1,101 @@
+# Agent Monte Carlo - Development Environment
+# Provides Jupyter, simulation runner, and monitoring
+
+version: '3.8'
+
+services:
+  # Jupyter Notebook for interactive development
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    image: agentmc/agent-monte-carlo:dev
+    container_name: agent-mc-jupyter
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./data:/app/data
+      - ./notebooks:/app/notebooks
+      - ./results:/app/results
+    environment:
+      - JUPYTER_TOKEN=agentmc-dev
+      - PYTHONUNBUFFERED=1
+    command: >
+      jupyter notebook
+      --ip=0.0.0.0
+      --port=8888
+      --no-browser
+      --allow-root
+      --NotebookApp.token='${JUPYTER_TOKEN:-agentmc-dev}'
+    profiles:
+      - dev
+
+  # Simulation runner (batch processing)
+  runner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    image: agentmc/agent-monte-carlo:latest
+    container_name: agent-mc-runner
+    volumes:
+      - ./data:/app/data
+      - ./configs:/app/configs
+      - ./results:/app/results
+    environment:
+      - PYTHONUNBUFFERED=1
+      - AGENT_MC_LOG_LEVEL=INFO
+    command: ["run", "--config", "/app/configs/default.yaml", "--data", "/app/data/prices.csv"]
+    profiles:
+      - run
+
+  # Redis for caching (optional)
+  redis:
+    image: redis:7-alpine
+    container_name: agent-mc-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    profiles:
+      - dev
+      - prod
+
+  # Monitoring (Prometheus + Grafana)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: agent-mc-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    profiles:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: agent-mc-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=agentmc-admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    profiles:
+      - monitoring
+
+volumes:
+  redis_data:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  default:
+    name: agent-mc-network
