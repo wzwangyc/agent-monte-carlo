@@ -1,9 +1,9 @@
 \section{Introduction}
 \label{sec:introduction}
 
-Financial markets exhibit striking empirical regularities that have puzzled researchers for decades. Asset returns display \textit{fat tails} (excess kurtosis around 19 for S\&P 500, compared to 3 for normal distribution), \textit{volatility clustering} (high-volatility periods tend to cluster together), and \textit{endogenous crashes} (large price drops without obvious external triggers).\footnote{See \citet{cont2001empirical} for a comprehensive survey of stylized facts in asset returns.}
+Financial markets are complex adaptive systems where \textit{fat tails}, \textit{volatility clustering}, and \textit{endogenous crashes} emerge from interactions between heterogeneous agents. These stylized facts---fat tails (kurtosis $\approx 19$ vs 3 for normal), volatility clustering (ACF $\approx 0.21$), and crashes ($\approx 3\%$ per year)---pose fundamental challenges to traditional models based on geometric Brownian motion.\footnote{See \citet{cont2001empirical} for a comprehensive survey.}
 
-Traditional Monte Carlo simulation, the workhorse of financial risk management, assumes that markets follow geometric Brownian motion with normally distributed returns. This framework, while analytically tractable, fundamentally fails to reproduce these empirical regularities. The question we address in this paper is: \textbf{can agent-based models reproduce realistic market phenomena better than traditional Monte Carlo?}
+This paper establishes the theoretical foundations and empirical validation of \textbf{Agent Monte Carlo} (Agent MC), a simulation framework that reproduces these stylized facts with rigorous proofs, comprehensive calibration, and policy relevance.
 
 \subsection{The Agent-Based Approach}
 

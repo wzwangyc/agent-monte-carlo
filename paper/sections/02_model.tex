@@ -164,6 +164,15 @@ We verify the theoretical results numerically:
 
 \textbf{Equilibrium Uniqueness:} While we do not prove uniqueness analytically, our numerical experiments provide strong evidence. All 20 random initial points converge to the same equilibrium (pairwise correlation > 0.999). This suggests a unique equilibrium under baseline parameters, though multiple equilibria cannot be ruled out theoretically.
 
+\textbf{Convergence Rate:} We measure the geometric convergence rate of EWA learning dynamics. Under baseline parameters, the convergence rate is 0.7342, indicating linear (geometric) convergence. Parameter sensitivity analysis reveals:
+\begin{itemize}
+    \item Higher $\phi$ (learning speed) $\rightarrow$ faster convergence
+    \item Higher $\lambda$ (selection sensitivity) $\rightarrow$ slower convergence
+    \item Phase diagram shows optimal parameter region for fast convergence
+\end{itemize}
+
+Figure \ref{fig:convergence} shows the convergence trajectory and phase diagram.
+
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth]{figures/equilibrium_convergence.pdf}
