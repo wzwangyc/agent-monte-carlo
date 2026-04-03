@@ -1,37 +1,17 @@
 """
-Agent Monte Carlo - Enterprise-grade agent-based Monte Carlo simulation framework.
+Agent Monte Carlo - v1.0
 
-This package provides a hybrid simulation engine combining traditional Monte Carlo
-computational efficiency with Agent-Based Modeling (ABM) behavioral realism.
+A multi-agent simulation framework for studying emergent market phenomena.
 
-Key Features:
-    - Adaptive regime switching between MC and ABM modes
-    - Automated Bayesian parameter calibration
-    - SHAP-based explainability
-    - 5-layer validation framework
-    - GPU acceleration support
-
-Example:
-    >>> from agent_mc import AgentMonteCarloSimulator, Config
-    >>> config = Config(n_simulations=10000, confidence_level=0.95)
-    >>> simulator = AgentMonteCarloSimulator(config)
-    >>> results = simulator.run(data)
+This is a research preview (v0.5 → v1.0 in development).
+See docs/ARCHITECTURE.md for full design.
 """
 
-__version__ = "0.5.0"
-__author__ = "Agent Monte Carlo Contributors"
-__email__ = "agent-mc@example.com"
+__version__ = '1.0.0-dev'
+__author__ = 'Wang Yucheng'
+__email__ = 'wangreits@163.com'
 
-from agent_mc.config import Config
-from agent_mc.simulator import AgentMonteCarloSimulator
-from agent_mc.types import Money, Price, Quantity, PnL, Return
+# Import core components (will be added progressively)
+# from .agents import Agent, AgentState, AgentMemory
 
-__all__ = [
-    "AgentMonteCarloSimulator",
-    "Config",
-    "Money",
-    "Price",
-    "Quantity",
-    "PnL",
-    "Return",
-]
+print(f"Agent Monte Carlo v{__version__} - Research Preview")
