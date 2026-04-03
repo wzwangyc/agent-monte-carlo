@@ -100,6 +100,8 @@ w_{t+1} - w^* \approx J \cdot (w_t - w^*)
 If $\rho(J) < 1$, the linear system is asymptotically stable, implying local asymptotic stability of the nonlinear system. $\square$
 \end{proof}
 
+\textbf{Remark on Global Stability:} Proposition 2 establishes local stability only. Global stability would require additional assumptions (e.g., contraction mapping). Numerically, we observe convergence from 20 random initial points to the same equilibrium, suggesting global stability in practice, though we leave formal proof for future research.
+
 \subsection{Comparative Statics}
 
 \begin{proposition}[Comparative Statics Derivative]
@@ -159,6 +161,8 @@ We verify the theoretical results numerically:
     \item Spectral radius: $\rho(J) = 0.7342 < 1$ (locally stable)
     \item Parameter robustness: All 5 parameter sets tested are stable
 \end{itemize}
+
+\textbf{Equilibrium Uniqueness:} While we do not prove uniqueness analytically, our numerical experiments provide strong evidence. All 20 random initial points converge to the same equilibrium (pairwise correlation > 0.999). This suggests a unique equilibrium under baseline parameters, though multiple equilibria cannot be ruled out theoretically.
 
 \begin{figure}[ht]
 \centering
