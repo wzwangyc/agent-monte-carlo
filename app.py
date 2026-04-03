@@ -653,6 +653,10 @@ def main():
             # Display key metrics comparison
             st.markdown("### 📊 Key Metrics Comparison")
             
+            # Key metrics comparison
+            st.markdown("### 📊 Key Metrics Comparison")
+            
+            # Row 1: Risk metrics
             col1, col2, col3, col4 = st.columns(4)
             
             with col1:
@@ -691,6 +695,46 @@ def main():
                     delta_color="inverse"
                 )
             
+            # Row 2: Return & Volatility metrics
+            st.markdown("")  # Spacer
+            col1, col2, col3, col4 = st.columns(4)
+            
+            with col1:
+                st.markdown("**Annual Volatility (Input)**")
+                st.metric(
+                    label="Setting",
+                    value=f"{volatility*100:.1f}%",
+                    delta="User-defined parameter",
+                    delta_color="normal"
+                )
+            
+            with col2:
+                st.markdown("**Realized Volatility (Traditional MC)**")
+                st.metric(
+                    label="Actual",
+                    value=f"{trad_metrics['std_return']*np.sqrt(252)*100:.1f}%",
+                    delta=f"vs Input: {(trad_metrics['std_return']*np.sqrt(252) - volatility)*100:+.1f}%",
+                    delta_color="normal"
+                )
+            
+            with col3:
+                st.markdown("**Realized Volatility (Agent MC)**")
+                st.metric(
+                    label="Actual (Emergent)",
+                    value=f"{agent_metrics['std_return']*np.sqrt(252)*100:.1f}%",
+                    delta=f"vs Input: {(agent_metrics['std_return']*np.sqrt(252) - volatility)*100:+.1f}%",
+                    delta_color="normal"
+                )
+            
+            with col4:
+                st.markdown("**Volatility Clustering**")
+                st.metric(
+                    label="Traditional MC",
+                    value="❌ None",
+                    delta="Agent MC: ✅ Yes (GARCH)",
+                    delta_color="normal"
+                )
+            
             # Main comparison chart
             st.markdown("---")
             st.markdown("### 📈 Full Visualization Comparison")
@@ -716,8 +760,11 @@ def main():
             st.markdown("### 📋 Detailed Metrics Table")
             
             metrics_df = pd.DataFrame({
-                'Metric': ['VaR (95%)', 'VaR (99%)', 'ES (95%)', 'ES (99%)', 
-                          'Max Drawdown', 'Mean Return', 'Std Dev', 'Kurtosis'],
+                'Metric': [
+                    'VaR (95%)', 'VaR (99%)', 'ES (95%)', 'ES (99%)', 
+                    'Max Drawdown', 'Mean Return', 'Std Dev (Daily)', 
+                    'Volatility (Annualized)', 'Kurtosis'
+                ],
                 'Traditional MC': [
                     f"{trad_metrics['var_95']:.2%}",
                     f"{trad_metrics['var_99']:.2%}",
@@ -726,6 +773,7 @@ def main():
                     f"{trad_metrics['max_drawdown']:.2%}",
                     f"{trad_metrics['mean_return']:.2%}",
                     f"{trad_metrics['std_return']:.2%}",
+                    f"{trad_metrics['std_return']*np.sqrt(252)*100:.1f}%",
                     f"{trad_metrics['kurtosis']:.2f}"
                 ],
                 'Agent MC': [
@@ -736,11 +784,12 @@ def main():
                     f"{agent_metrics['max_drawdown']:.2%}",
                     f"{agent_metrics['mean_return']:.2%}",
                     f"{agent_metrics['std_return']:.2%}",
+                    f"{agent_metrics['std_return']*np.sqrt(252)*100:.1f}%",
                     f"{agent_metrics['kurtosis']:.2f}"
                 ],
                 'Empirical (S&P 500)': [
                     '~5%', '~8%', '~7%', '~10%',
-                    '~15%', '~8%', '~15%', '~19'
+                    '~15%', '~8%', '~0.8%', '~15%', '~19'
                 ]
             })
             
