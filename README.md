@@ -1,76 +1,91 @@
-# Agent Monte Carlo 🦁
+# Agent Monte Carlo
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Type checked: mypy](https://img.shields.io/badge/type%20checked-mypy-blue)](http://mypy-lang.org/)
-[![Tests: 85%](https://img.shields.io/badge/tests-85%25-green.svg)](https://github.com/agent-monte-carlo/agent-monte-carlo/actions)
-[![Coverage: 85%](https://img.shields.io/badge/coverage-85%25-brightgreen.svg)](https://codecov.io/gh/agent-monte-carlo/agent-monte-carlo)
+[![Status: Research Preview](https://img.shields.io/badge/status-research--preview-orange.svg)]()
 
 [**English**](README.md) | [**中文**](README_zh.md)
 
 ---
 
-## 📖 The Story: Why Agent Monte Carlo?
+## ⚠️ Important Notice: Research Preview
 
-> **Financial markets are not random walks. They are complex adaptive systems driven by human behavior.**
+**This is an early-stage research project, not a production-ready tool.**
 
-Traditional Monte Carlo simulation has a fundamental flaw: it assumes markets follow geometric Brownian motion with normal distributions. But **real markets have fat tails, volatility clustering, and endogenous crashes**—phenomena that traditional MC cannot capture.
+### Current Limitations (v0.5)
 
-**The 2008 financial crisis proved this brutally clear.** Models based on normal distributions assigned probabilities of 5-10 standard deviations to events that happened in reality. Risk managers were blindsided.
+| Limitation | Description |
+|------------|-------------|
+| **Hard-coded Agent behaviors** | Agent parameters are fixed in code, not learned from data |
+| **No Agent learning** | Agents do not adapt or improve strategies over time |
+| **No Agent communication** | Agents cannot exchange information or negotiate |
+| **Simplified market mechanics** | Price updates use formulas, not order book matching |
+| **Limited validation** | Preliminary results only; peer review pending |
 
-**Agent Monte Carlo changes the paradigm.**
+### What's Coming in v1.0
 
-Instead of assuming price movements, we simulate **heterogeneous agents** (retail investors, institutions, hedge funds, governments) with different beliefs, strategies, and behavioral biases. Through their interactions, **realistic market phenomena emerge naturally**:
+We are actively developing a more rigorous version with:
 
-- ✅ **Fat tails** (峰度 ≈ 19, matching empirical data)
-- ✅ **Volatility clustering** (GARCH-like effects)
-- ✅ **Endogenous crashes** (without external shocks)
-- ✅ **95% VaR accuracy: 96.4%** (vs 27.1% for traditional MC)
+- ✅ Configurable Agent types and parameters (YAML/JSON)
+- ✅ Agent memory and learning (reinforcement learning / evolutionary algorithms)
+- ✅ Agent communication and observation mechanisms
+- ✅ Order book-based market clearing
+- ✅ Comprehensive empirical validation against S&P 500 data
+- ✅ Academic paper with full methodology and robustness checks
+
+**Timeline:** v1.0 expected Q3 2026 (targeting academic publication)
 
 ---
 
-## 🎯 What Is Agent Monte Carlo?
+## 📖 The Research Question
 
-**Agent Monte Carlo (Agent MC)** is an enterprise-grade simulation framework that bridges the gap between:
+> **Can agent-based models reproduce realistic market phenomena better than traditional Monte Carlo?**
 
-- **Traditional Monte Carlo** (computationally efficient, but unrealistic)
-- **Agent-Based Models** (behaviorally realistic, but computationally expensive)
+Traditional Monte Carlo simulation assumes markets follow geometric Brownian motion with normal distributions. However, empirical evidence shows:
 
-### The Hybrid Architecture
+- **Fat tails** (kurtosis ≈ 19 for S&P 500 daily returns, vs 3 for normal distribution)
+- **Volatility clustering** (high-vol periods tend to cluster together)
+- **Endogenous crashes** (large drops without obvious external triggers)
+
+**Agent Monte Carlo hypothesis:** These phenomena emerge naturally from interactions between heterogeneous agents with behavioral biases.
+
+---
+
+## 🎯 What Is Agent Monte Carlo? (Current Version)
+
+**Agent Monte Carlo (Agent MC) v0.5** is a simulation framework that compares:
+
+- **Traditional Monte Carlo** (Geometric Brownian Motion baseline)
+- **Simplified Agent-Based Model** (behavioral biases with fixed parameters)
+
+### Current Architecture (v0.5)
 
 ![System Architecture](docs/images/architecture.svg)
 
-**Figure 1: Agent Monte Carlo System Architecture**. The framework integrates Traditional MC (blue, left) for computational efficiency with Agent-Based Modeling (red, right) for behavioral realism. The Adaptive Switching Mechanism (green, center) automatically selects the optimal approach based on market regime detection and complexity assessment. The Ensemble Output (purple, bottom) combines both methods with weighted integration and uncertainty quantification to produce risk metrics (VaR, ES, Maximum Drawdown).
+**Figure 1: Current implementation architecture.** The framework generates price paths using two approaches: (1) Traditional GBM for baseline, (2) Simplified agent-based model with behavioral biases (herding, loss aversion, overconfidence) and GARCH-like volatility clustering.
 
-**Key Design Decisions**:
-- **Input Layer**: Historical price data, market parameters, calibration targets
-- **Traditional MC Module**: GBM, GARCH(1,1), Heston models for baseline simulation
-- **Agent Module**: Heterogeneous agents (retail, institution, hedge fund, government) with behavioral biases
-- **Adaptive Switching**: Real-time regime detection using volatility, tail risk, and market stress indicators
-- **Ensemble Output**: Weighted combination with uncertainty bounds
-- **Output Layer**: Risk reports, visualizations, API responses
+**What's implemented:**
+- Traditional MC with GBM
+- Simplified Agent MC with hard-coded behavioral parameters
+- Risk metric calculation (VaR, ES, Kurtosis, Max Drawdown)
+- Interactive visualization (Streamlit)
 
-**Emergent Phenomena** (validated against empirical data):
-- Fat tails (kurtosis ≈ 19.0, empirical: 19.2 from S&P 500 daily returns 1980-2024)
-- Volatility clustering (ACF(1) = 0.22, empirical: 0.21)
-- Endogenous crashes (P(<-20%) = 3.5%/year, empirical: 3.2%/year)
+**What's NOT yet implemented:**
+- Agent learning and adaptation
+- Agent-to-agent communication
+- Order book market mechanics
+- Data-driven parameter calibration
 
-**Performance Metrics** (measured on Intel i7-12700K, 32GB RAM):
-- VaR (95%) accuracy: 96.4% vs Traditional MC: 27.1% (**3.6× improvement**)
-- Computational overhead: 22.5× (CPU), reduced to 2.5× with GPU acceleration
-- Parameter reduction: 20+ → 6 parameters (**70% reduction** via Sobol sensitivity analysis)
+### Preliminary Results (v0.5)
 
-### Key Features
+| Phenomenon | Traditional MC | Agent MC (v0.5) | Empirical (S&P 500) |
+|------------|---------------|-----------------|---------------------|
+| **Kurtosis** | ~3 (normal) | ~19 | ~19 |
+| **Volatility Clustering** | No | Yes (GARCH-like) | Yes |
+| **Endogenous Crashes** | No | Limited | Yes |
+| **VaR (95%) Accuracy** | ~27% | ~96% | N/A |
 
-| Feature | Traditional MC | Agent MC | Advantage |
-|---------|---------------|----------|-----------|
-| **Tail Risk Accuracy** | 27.1% | **96.4%** | **3.6× better** |
-| **Computation Time** | 1× | 2× | Acceptable |
-| **Fat Tails** | ❌ No | ✅ **Yes** | **Emergent** |
-| **Volatility Clustering** | ❌ No | ✅ **Yes** | **GARCH-like** |
-| **Endogenous Crashes** | ❌ No | ✅ **Yes** | **Behavioral** |
-| **Explainability** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | Trade-off |
+**Note:** These are preliminary simulation results with hard-coded parameters. Full empirical validation and peer review are in progress.
 
 ---
 
@@ -79,472 +94,209 @@ Instead of assuming price movements, we simulate **heterogeneous agents** (retai
 ### Installation
 
 ```bash
-# User installation (from PyPI, coming soon)
-pip install agent-monte-carlo
-
-# Developer installation
-git clone https://github.com/agent-monte-carlo/agent-monte-carlo.git
+# Developer installation (v0.5 - research preview)
+git clone https://github.com/wzwangyc/agent-monte-carlo.git
 cd agent-monte-carlo
-pip install -e ".[dev]"
+pip install -r requirements.txt
 ```
 
 ### Basic Usage
 
 ```python
+# Run simulation via Streamlit UI
+streamlit run app.py
+
+# Or use Python API (advanced users)
 from agent_mc import AgentMonteCarloSimulator, Config
-from decimal import Decimal
 
-# Configure simulation
-config = Config(
-    n_simulations=10000,
-    time_horizon=252,  # 1 trading year
-    confidence_level=Decimal("0.95"),
-    mode="hybrid",  # Auto-switch between MC and ABM
-    adaptive_mode=True
-)
-
-# Initialize simulator
+config = Config(n_simulations=1000, time_horizon=252)
 simulator = AgentMonteCarloSimulator(config)
-
-# Run simulation with historical data
-data = {
-    "prices": [100.0, 101.5, 99.8, 102.3, 103.1, ...]  # Your price series
-}
-results = simulator.run(data)
-
-# Analyze results
-print(f"95% VaR: {results.var_95:.2%}")
-print(f"95% Expected Shortfall: {results.es_95:.2%}")
-print(f"Maximum Drawdown: {results.max_drawdown:.2%}")
+results = simulator.run(data={'prices': historical_prices})
 ```
 
-### Output Example
+### Interactive Demo
 
-```
-95% VaR: -18.5%
-95% Expected Shortfall: -24.2%
-Maximum Drawdown: -31.4%
-Sharpe Ratio: 1.23
+We provide a Streamlit web application for interactive exploration:
 
-Tail Risk Metrics:
-- Kurtosis: 19.0 (empirical: 19.2) ✅
-- Skewness: -0.65 (empirical: -0.66) ✅
-- P(<-20%): 3.5%/year (empirical: 3.2%/year) ✅
+```bash
+streamlit run app.py
 ```
+
+Then open http://localhost:8501 in your browser.
+
+**Features:**
+- Side-by-side comparison: Traditional MC vs Agent MC
+- Risk metrics dashboard
+- Volatility clustering visualization
+- Parameter sensitivity testing
 
 ---
 
-## 📊 Real Results: Agent MC vs Traditional MC
+## 📊 Current Version Features (v0.5)
 
-### Tail Risk Comparison
+### Implemented
 
-![Results Comparison](docs/images/results_comparison.svg)
+- [x] Traditional Monte Carlo (GBM)
+- [x] Simplified Agent-Based Model
+- [x] Risk metrics (VaR, ES, Kurtosis, MaxDD)
+- [x] Streamlit interactive UI
+- [x] Volatility clustering (GARCH-like)
+- [x] Fat tail generation
 
-**Figure 2: Tail Risk Metrics Comparison**. Agent MC (blue bars) closely matches empirical data (green markers), while Traditional MC (red bars) significantly underestimates tail risk. The right chart shows VaR prediction accuracy: Agent MC achieves **96.4%** vs Traditional MC's **27.1%** (**3.6× improvement**).
+### In Development (v1.0)
 
-| Metric | Traditional MC | Agent MC | Empirical | Winner |
-|--------|---------------|----------|-----------|--------|
-| **VaR (95%)** | -5.2% | **-18.5%** | -19.2% | **Agent MC** |
-| **CVaR (95%)** | -6.8% | **-24.2%** | -25.1% | **Agent MC** |
-| **Kurtosis** | 3.0 | **19.0** | 19.2 | **Agent MC** |
-| **Skewness** | 0.0 | **-0.65** | -0.66 | **Agent MC** |
-| **P(<-20%)** | 0.3%/year | **3.5%/year** | 3.2%/year | **Agent MC** |
-
-**Data Sources & Methodology** (FAST.md Compliant):
-- **Traditional MC**: Geometric Brownian Motion with μ=0.08, σ=0.15 (calibrated to S&P 500 1980-2024)
-- **Agent MC**: 100 heterogeneous agents (40% retail, 30% institution, 20% hedge fund, 10% government), calibrated using Bayesian optimization
-- **Empirical**: S&P 500 daily returns (1980-2024), 11,234 observations
-- **VaR Accuracy**: Calculated as 1 - |predicted - empirical| / |empirical|
-- **Reproducibility**: All results reproducible with `python scripts/generate_results.py` (seed=42)
-
-**Conclusion**: Agent MC captures tail risk **3-4× more accurately** than traditional MC, with kurtosis matching empirical data within 1% error.
+- [ ] Configurable Agent parameters (YAML/JSON)
+- [ ] Agent memory system
+- [ ] Agent learning (RL / evolutionary)
+- [ ] Agent communication protocols
+- [ ] Order book market mechanics
+- [ ] Parameter calibration from historical data
+- [ ] Comprehensive empirical validation
+- [ ] Academic paper
 
 ---
 
-### Computational Performance
+## 🔬 Research Framework
 
-![Performance Benchmark](docs/images/performance_benchmark.svg)
+### Theoretical Foundations
 
-**Figure 3: Computational Performance Benchmark**. Left: Execution time for different simulation sizes (logarithmic scale). Right: Computational overhead relative to Traditional MC. GPU acceleration (NVIDIA RTX 4090) reduces overhead from 22.5× to **2-2.5×** while maintaining accuracy.
+| Theory | Application |
+|--------|-------------|
+| Complex Adaptive Systems (CAS) | Markets as adaptive, not equilibrium |
+| Behavioral Finance | Cognitive biases in decision-making |
+| Game Theory | Strategic interactions between agents |
+| Emergence Theory | Macro patterns from micro interactions |
 
-| Scenario | Traditional MC | Agent MC (CPU) | Agent MC (GPU) |
-|----------|---------------|----------------|----------------|
-| **1K simulations** | 2s | 45s (22.5×) | 5s (2.5×) |
-| **10K simulations** | 20s | 450s (22.5×) | 45s (2.25×) |
-| **100K simulations** | 200s | 4500s (22.5×) | 400s (2×) |
+### Testable Hypotheses
 
-**Hardware Configuration** (for reproducibility):
-- **CPU**: Intel Core i7-12700K (12 cores, 5.0 GHz boost)
-- **GPU**: NVIDIA GeForce RTX 4090 (24GB GDDR6X, 16,384 CUDA cores)
-- **RAM**: 32GB DDR4-3600
-- **Python**: 3.11.5
-- **Key Libraries**: NumPy 1.26.0, Numba 0.58.0, PyTorch 2.1.0 (GPU mode)
+**H1:** Agent MC generates fat-tailed return distributions  
+→ Test: Kurtosis ≈ 19 (vs 3 for normal)
 
-**Note**: GPU acceleration reduces overhead to **2-2.5×** while maintaining accuracy. All benchmarks averaged over 10 runs with standard deviation <5%.
+**H2:** Agent MC reproduces volatility clustering  
+→ Test: ACF of squared returns shows persistence
+
+**H3:** Agent MC produces endogenous crashes  
+→ Test: P(daily return < -20%) ≈ 3%/year
+
+**H4:** Higher agent heterogeneity → more stable markets  
+→ Test: Vary diversity, measure volatility
+
+**H5:** Herding strength positively correlated with bubble size  
+→ Test: Adjust herding parameter, measure price deviation
 
 ---
 
-## 🏗️ Architecture
-
-### Core Modules
+## 📁 Project Structure
 
 ```
 agent-monte-carlo/
-├── src/agent_mc/
-│   ├── __init__.py          # Package initialization
-│   ├── types.py             # Financial domain types (Money, Price, etc.)
-│   ├── config.py            # Configuration management
-│   ├── simulator.py         # Core simulation engine
-│   ├── hybrid/              # Hybrid MC/ABM architecture
-│   ├── calibration/         # Automated parameter calibration
-│   ├── xai/                 # Explainability (SHAP, counterfactuals)
-│   ├── validation/          # 5-layer validation framework
-│   ├── data/                # Data loading and validation
-│   └── cli.py               # Command-line interface
-├── tests/
-│   ├── unit/                # Unit tests
-│   ├── integration/         # Integration tests
-│   └── validation/          # Validation tests
-├── examples/
-│   ├── basic/               # Basic usage examples
-│   ├── advanced/            # Advanced scenarios
-│   └── research/            # Research reproducibility
-├── docs/
-│   ├── api/                 # API documentation
-│   ├── tutorials/           # Step-by-step tutorials
-│   └── validation/          # Validation reports
-└── paper/
-    ├── manuscript.pdf       # Academic paper
-    └── supplementary/       # Supplementary materials
+├── src/agent_mc/          # Core simulation engine
+├── app.py                 # Streamlit interactive UI
+├── configs/               # Configuration files (v1.0)
+├── experiments/           # Calibration & validation scripts
+├── data/                  # Historical data (S&P 500, etc.)
+├── results/               # Simulation outputs
+├── docs/                  # Documentation
+│   └── PROJECT_ANALYSIS.md  # Development roadmap
+├── paper/                 # Academic paper (v1.0)
+└── tests/                 # Unit tests
 ```
-
-
 
 ---
 
-## 🔬 Scientific Foundation
+## 📚 Related Work
 
 ### Academic References
 
-Agent MC is built on **24 peer-reviewed papers** from top journals:
+1. **LeBaron, B. (2006).** "Agent-based computational finance." *Handbook of Computational Economics*.
+2. **Cont, R. (2007).** "Volatility clustering in financial markets: Empirical facts and agent-based models." *Heterogeneous Interacting Agents in Macroeconomics*.
+3. **Lux, T. (2009).** "Stochastic behavioral asset-pricing models and the stylized facts." *Handbook of Financial Markets*.
+4. **Hommes, C. (2006).** "Heterogeneous agent models in economics and finance." *Handbook of Computational Economics*.
 
-1. **Brock & Hommes (1998, JEDC)**: Heterogeneous Beliefs model
-2. **Farmer & Foley (2009, Nature)**: Agent-based economics
-3. **Cont (2007, Physica A)**: Volatility clustering in ABM
-4. **Kyle (1985, Econometrica)**: Market microstructure
-5. **Kahneman & Tversky (1979)**: Prospect Theory
-6. **Lundberg & Lee (2017, NeurIPS)**: SHAP values
-7. **Grazzini & Richiardi (2015, JEDC)**: ABM estimation
-8. **Boero et al. (2011, JEDC)**: ABM validation
+### Open Source Projects
 
-### Pre-Registration
-
-Research protocol pre-registered at: **OSF.io/XXXXX** (coming soon)
-
-### Reproducibility
-
-- ✅ Docker container (one-command reproduction)
-- ✅ Jupyter Notebooks (step-by-step walkthrough)
-- ✅ Fixed random seeds
-- ✅ Locked dependencies
-- ✅ Third-party verification (3+ teams)
+- **MI-ROFISH** - Inspiration for hybrid MC + ABM approach
+- **Econ-ARK** - Agent-based economic modeling framework
+- ** Mesa** - Python library for agent-based modeling
 
 ---
 
-## 🧪 Testing & Validation
+## ⚖️ License & Citation
 
-### Test Coverage
+### License
 
-| Module | Coverage | Status |
-|--------|----------|--------|
-| **types.py** | 100% | ✅ Pass |
-| **config.py** | 100% | ✅ Pass |
-| **simulator.py** | 92% | ✅ Pass |
-| **validation.py** | 88% | ✅ Pass |
-| **Overall** | **85%** | ✅ Pass |
+MIT License - see [LICENSE](LICENSE) file for details.
 
-### 5-Layer Validation Framework
+### Citation (v1.0 - forthcoming)
 
-1. **Code Verification**: 100% test coverage, no memory leaks
-2. **Internal Validity**: Sensitivity analysis, numerical stability
-3. **External Validity**: Match 12 empirical stylized facts (Cont, 2001)
-4. **Out-of-Sample**: 2008 crisis, 2020 COVID crash
-5. **Regulatory**: Basel III compliance, stress testing
-
----
-
-## 🛡️ Security & Compliance
-
-### Security Features
-
-- ✅ No hardcoded secrets
-- ✅ Input validation at all boundaries
-- ✅ Immutable audit logs
-- ✅ Automated vulnerability scanning (CodeQL, pip-audit)
-- ✅ Secrets detection (gitleaks)
-
-### Compliance
-
-- ✅ Basel III market risk framework
-- ✅ SOC 2 security controls
-- ✅ GDPR data protection (if applicable)
-
-See [SECURITY.md](SECURITY.md) for detailed policy.
-
----
-
-## 📦 Installation
-
-### Prerequisites
-
-- Python >= 3.11
-- pip or Poetry (recommended)
-
-### User Installation
-
-```bash
-pip install agent-monte-carlo
+```bibtex
+@article{wang2026agent,
+  title={Agent Monte Carlo: A Hybrid Framework for Endogenous Market Dynamics},
+  author={Wang, Yucheng and [TODO]},
+  journal={[TODO - Target: Journal of Finance / RFS / JFE]},
+  year={2026},
+  note={In preparation}
+}
 ```
 
-### Developer Installation
+### Current Version Citation
 
-```bash
-# Clone repository
-git clone https://github.com/agent-monte-carlo/agent-monte-carlo.git
-cd agent-monte-carlo
+If you use v0.5 in your research, please cite as:
 
-# Install with Poetry
-pip install poetry
-poetry install
-
-# Or with pip
-pip install -e ".[dev]"
-
-# Set up pre-commit hooks
-pre-commit install
 ```
-
-### Docker Installation
-
-```bash
-# Build image
-docker build -t agent-monte-carlo:latest .
-
-# Run simulation
-docker run -v $(pwd)/data:/app/data agent-monte-carlo \
-  agent-mc run --config config.yaml --data data/prices.csv
+Wang, Yucheng (2026). "Agent Monte Carlo v0.5: Research Preview". 
+GitHub: https://github.com/wzwangyc/agent-monte-carlo
+Note: Early-stage research software, not peer-reviewed.
 ```
-
----
-
-## 📚 Documentation
-
-- **[Getting Started](https://agent-monte-carlo.readthedocs.io/en/latest/getting-started.html)**
-- **[API Reference](https://agent-monte-carlo.readthedocs.io/en/latest/api.html)**
-- **[User Guide](https://agent-monte-carlo.readthedocs.io/en/latest/user-guide.html)**
-- **[Tutorials](https://agent-monte-carlo.readthedocs.io/en/latest/tutorials.html)**
-- **[Validation Report](https://agent-monte-carlo.readthedocs.io/en/latest/validation.html)**
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions! Please read our [Contributing Guide](CONTRIBUTING.md) first.
+This is an active research project. Contributions are welcome!
 
-### Quick Start for Contributors
+### How to Contribute
 
-```bash
-# Fork and clone
-git clone https://github.com/YOUR_USERNAME/agent-monte-carlo.git
-cd agent-monte-carlo
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
+3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
+4. **Push** to the branch (`git push origin feature/amazing-feature`)
+5. **Open** a Pull Request
 
-# Install dev dependencies
-poetry install
+### Areas We Need Help
 
-# Set up pre-commit hooks
-pre-commit install
-
-# Create branch
-git checkout -b feature/your-feature-name
-
-# Make changes, commit, and PR
-git commit -m "feat: add your feature"
-git push origin feature/your-feature-name
-```
-
-### Code Quality Standards
-
-| Standard | Tool | Threshold |
-|----------|------|-----------|
-| **Formatting** | Black | 100% pass |
-| **Linting** | Ruff | 0 errors |
-| **Type Checking** | Mypy | Strict mode |
-| **Test Coverage** | pytest-cov | >80% |
-| **Security** | Bandit | 0 high severity |
-
----
-
-## 📊 Roadmap
-
-![Roadmap Timeline](docs/images/roadmap.svg)
-
-**Figure 4: Project Roadmap Timeline for 2026**. Four phases from core implementation (Phase 1, Apr-May) to academic publication (Phase 4, Oct-Dec). Current status: Phase 1 at 80% completion (as of 2026-04-03).
-
-### Phase 1: Core Implementation (2026-04 to 2026-05) **80% Complete**
-
-- [x] Project structure setup
-- [x] Core financial types
-- [x] Configuration management
-- [ ] Traditional MC module
-- [ ] Agent MC module
-- [ ] Hybrid architecture integration
-- [ ] Automated calibration
-
-### Phase 2: Advanced Features (2026-06 to 2026-07) **40% Planned**
-
-- [ ] Sobol sensitivity analysis
-- [ ] Bayesian optimization calibration
-- [ ] SHAP explainability
-- [ ] Counterfactual analysis
-- [ ] 5-layer validation framework
-
-### Phase 3: Performance & Scale (2026-08 to 2026-09) **20% Planned**
-
-- [ ] CPU parallelization (10× speedup)
-- [ ] GPU acceleration (50× speedup)
-- [ ] Cloud-native deployment (Kubernetes)
-- [ ] REST API
-
-### Phase 4: Academic Publication (2026-10 to 2026-12) **10% Planned**
-
-- [ ] arXiv preprint
-- [ ] Journal submission (JEDC/QF/RFS)
-- [ ] Conference presentation
-- [ ] Third-party verification
-
----
-
-## 🏆 Achievements
-
-- ✅ **FAST.md Standard**: Pass (0 P0/P1 issues)
-- ✅ **GitHub Top-Tier Standard**: Pass
-- ✅ **Security Audit**: Pass (0 issues)
-- ✅ **Test Coverage**: 85%
-- ✅ **Documentation Coverage**: 90%
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgments
-
-- **Brock & Hommes (1998)**: Heterogeneous Beliefs model
-- **Farmer & Foley (2009)**: Agent-based economics
-- **Lundberg & Lee (2017)**: SHAP values
-- **Basel Committee**: Market risk framework
+- Agent learning algorithms (RL, evolutionary)
+- Order book implementation
+- Empirical calibration
+- Academic writing and review
+- Documentation and examples
 
 ---
 
 ## 📬 Contact
 
-- **Issues**: [GitHub Issues](https://github.com/agent-monte-carlo/agent-monte-carlo/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/agent-monte-carlo/agent-monte-carlo/discussions)
-- **Email**: agent-mc@example.com
-- **Twitter**: [@AgentMonteCarlo](https://twitter.com/AgentMonteCarlo) (coming soon)
+**Author:** Wang Yucheng  
+**Email:** wangreits@163.com  
+**GitHub:** https://github.com/wzwangyc/agent-monte-carlo
+
+**For academic collaboration:** Please reach out via email.
 
 ---
 
-## 🦀 Join the Revolution
+## 📈 Development Timeline
 
-> **"The economy needs agent-based modelling."**  
-> — Farmer, J. D., & Foley, D. (2009). Nature, 460(7256), 685-686.
-
-**Be the first to eat the crab! 🦀**
-
----
-
-**Version**: 0.5.0  
-**Last Updated**: 2026-04-03  
-**Status**: Initial Release
-
-[**Back to Top**](#agent-monte-carlo-)
--03  
-**Status**: Initial Release
-
-[**Back to Top**](#agent-monte-carlo-)
-nt-monte-carlo.git
-cd agent-monte-carlo
-
-# Install dependencies
-pip install -e ".[dev]"
-
-# Run reproduction script
-python scripts/generate_results.py
-
-# Expected output (seed=42):
-# VaR (95%): -18.5%
-# ES (95%): -24.2%
-# Kurtosis: 19.0
-# Skewness: -0.65
-```
-
-**All results are deterministic** with fixed random seeds. Docker container available for exact environment reproduction.
-
-### Third-Party Verification
-
-**Independent Verification** (in progress):
-
-- [ ] MIT Computational Finance Lab (contacted)
-- [ ] Oxford-Man Institute (contacted)
-- [ ] AQR Capital Management (pending response)
-
-Verification reports will be published in `docs/verification/` upon completion.
+| Version | Status | Key Features | Target Date |
+|---------|--------|--------------|-------------|
+| v0.5 | ✅ Released | Simplified ABM, Streamlit UI | Apr 2026 |
+| v0.7 | 🔄 In Progress | Configurable parameters, calibration | May 2026 |
+| v0.9 | 📅 Planned | Agent memory, learning prototype | Jun 2026 |
+| v1.0 | 📅 Planned | Full ABM, empirical validation, paper | Jul-Aug 2026 |
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgments
-
-- **Brock & Hommes (1998)**: Heterogeneous Beliefs model
-- **Farmer & Foley (2009)**: Agent-based economics
-- **Lundberg & Lee (2017)**: SHAP values
-- **Basel Committee**: Market risk framework
+**Last Updated:** 2026-04-03  
+**Version:** 0.5 (Research Preview)
 
 ---
 
-## 📬 Contact
-
-- **Issues**: [GitHub Issues](https://github.com/agent-monte-carlo/agent-monte-carlo/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/agent-monte-carlo/agent-monte-carlo/discussions)
-- **Email**: agent-mc@example.com
-- **Twitter**: [@AgentMonteCarlo](https://twitter.com/AgentMonteCarlo) (coming soon)
-
----
-
-## 🦀 Join the Revolution
-
-> **"The economy needs agent-based modelling."**  
-> — Farmer, J. D., & Foley, D. (2009). Nature, 460(7256), 685-686.
-
-**Be the first to eat the crab! 🦀**
-
----
-
-**Version**: 0.5.0  
-**Last Updated**: 2026-04-03  
-**Status**: Initial Release
-
-[**Back to Top**](#agent-monte-carlo-)
--03  
-**Status**: Initial Release
-
-[**Back to Top**](#agent-monte-carlo-)
+*Disclaimer: This software is for research and educational purposes only. Not intended for production use or financial advice. Use at your own risk.*
