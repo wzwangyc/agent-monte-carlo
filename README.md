@@ -39,7 +39,7 @@ Instead of assuming price movements, we simulate **heterogeneous agents** (retai
 
 ### The Hybrid Architecture
 
-![System Architecture](docs/images/architecture_advanced.svg)
+![System Architecture](docs/images/architecture.svg)
 
 **Figure 1: Agent Monte Carlo System Architecture**. The framework integrates Traditional MC (blue, left) for computational efficiency with Agent-Based Modeling (red, right) for behavioral realism. The Adaptive Switching Mechanism (green, center) automatically selects the optimal approach based on market regime detection and complexity assessment. The Ensemble Output (purple, bottom) combines both methods with weighted integration and uncertainty quantification to produce risk metrics (VaR, ES, Maximum Drawdown).
 
