@@ -7,8 +7,6 @@ Full Visualization: Agent MC vs Traditional MC Comparison
 
 Usage:
     streamlit run app.py
-
-Version: 2026-04-03-FIX2 - Fixed Plotly rgba colors
 """
 
 import streamlit as st
@@ -189,7 +187,7 @@ def generate_agent_mc_paths(n_paths: int = 1000, n_days: int = 252,
     Agent MC features:
     - Heterogeneous agents (retail, institutions, hedge funds)
     - Behavioral biases (herding, overconfidence, loss aversion)
-    - Fat tails (kurtosis â‰?19)
+    - Fat tails (kurtosis â‰ˆ 19)
     - Volatility clustering (GARCH-like)
     - Endogenous crashes
     """
@@ -513,17 +511,17 @@ def main():
         
         if api_key:
             st.session_state.api_key = api_key
-            st.sidebar.success("âœ?API key saved!")
+            st.sidebar.success("âœ… API key saved!")
         else:
             st.sidebar.warning("âš ï¸ Please enter API key for Pro Mode")
         
         st.sidebar.markdown("""
         **Pro Mode Benefits:**
-        - âœ?Unlimited simulations
-        - âœ?Custom data sources
-        - âœ?Advanced analytics
-        - âœ?Export reports
-        - âœ?Priority support
+        - âœ… Unlimited simulations
+        - âœ… Custom data sources
+        - âœ… Advanced analytics
+        - âœ… Export reports
+        - âœ… Priority support
         """)
     else:
         reset_daily_counter()
@@ -537,22 +535,22 @@ def main():
         )
         
         if can_proceed:
-            st.sidebar.success(f"âœ?{remaining} attempts remaining today")
+            st.sidebar.success(f"âœ… {remaining} attempts remaining today")
         else:
-            st.sidebar.error("â?Daily limit reached. Try again tomorrow or switch to Pro Mode!")
+            st.sidebar.error("âŒ Daily limit reached. Try again tomorrow or switch to Pro Mode!")
         
         st.sidebar.markdown("""
         **Free Tier Includes:**
-        - âœ?10 simulations/day
-        - âœ?Full MC comparison
-        - âœ?Interactive charts
-        - âœ?No API key needed
+        - âœ… 10 simulations/day
+        - âœ… Full MC comparison
+        - âœ… Interactive charts
+        - âœ… No API key needed
         """)
     
     st.sidebar.markdown("---")
     
     # Main simulation controls
-    st.markdown("### ğŸ›ï¸?Simulation Parameters")
+    st.markdown("### ğŸ›ï¸ Simulation Parameters")
     
     col1, col2, col3, col4 = st.columns(4)
     
@@ -599,9 +597,9 @@ def main():
         can_proceed, remaining = check_rate_limit()
         
         if st.session_state.is_pro_mode and not st.session_state.api_key:
-            st.error("â?Please enter your API key first!")
+            st.error("âŒ Please enter your API key first!")
         elif not can_proceed and not st.session_state.is_pro_mode:
-            st.error("â?Daily limit reached! Switch to Pro Mode for unlimited simulations.")
+            st.error("âŒ Daily limit reached! Switch to Pro Mode for unlimited simulations.")
         else:
             # Progress bar
             progress_bar = st.progress(0)
@@ -645,10 +643,10 @@ def main():
             
             increment_simulation_count()
             progress_bar.progress(100)
-            status_text.text("âœ?Simulation complete!")
+            status_text.text("âœ… Simulation complete!")
             
             st.success(
-                f"âœ?Simulation completed! " 
+                f"âœ… Simulation completed! " 
                 f"({'Unlimited in Pro Mode' if st.session_state.is_pro_mode else f'{remaining - 1} attempts remaining'})"
             )
             
@@ -758,7 +756,7 @@ def main():
                 st.info("""
                 **ğŸ¯ Fat Tails**
                 
-                Agent MC generates kurtosis â‰?19, 
+                Agent MC generates kurtosis â‰ˆ 19, 
                 matching empirical data. Traditional MC 
                 assumes normal distribution (kurtosis = 3).
                 """)
