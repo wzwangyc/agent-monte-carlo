@@ -504,25 +504,45 @@ def main():
     if st.session_state.is_pro_mode:
         st.sidebar.markdown('<div class="pro-tier-badge">PRO MODE</div>', unsafe_allow_html=True)
         
+        st.sidebar.markdown("### Supported Data Providers")
+        st.sidebar.markdown("""
+        **Free Tier APIs:**
+        - Yahoo Finance (yfinance)
+        - FRED Economic Data
+        - Alpha Vantage (free tier)
+        
+        **Premium APIs:**
+        - Bloomberg Terminal
+        - Refinitiv Eikon
+        - Quandl Premium
+        - IEX Cloud
+        
+        **Crypto APIs:**
+        - CoinGecko
+        - Binance API
+        - Coinbase Pro
+        """)
+        
         api_key = st.sidebar.text_input(
-            "API Key",
+            "API Key (Optional for Demo)",
             value=st.session_state.api_key or "",
             type="password",
-            help="Enter your API key for unlimited simulations"
+            help="Enter API key for your preferred data provider. For demo mode, this is optional."
         )
         
         if api_key:
             st.session_state.api_key = api_key
-            st.sidebar.success("API key saved!")
+            st.sidebar.info("API key configured for: Custom Data Source")
         else:
-            st.sidebar.warning("Please enter API key for Pro Mode")
+            st.sidebar.info("Using demo mode with synthetic data")
         
+        st.sidebar.markdown("---")
         st.sidebar.markdown("""
         **Pro Mode Benefits:**
         - Unlimited simulations
         - Custom data sources
         - Advanced analytics
-        - Export reports
+        - Export reports (CSV/JSON)
         - Priority support
         """)
     else:
@@ -546,7 +566,13 @@ def main():
         - 10 simulations/day
         - Full MC comparison
         - Interactive charts
+        - Demo data (synthetic)
         - No API key needed
+        
+        **Supported without API:**
+        - Yahoo Finance (^GSPC, ^VIX)
+        - FRED Economic Data
+        - Synthetic data generation
         """)
     
     st.sidebar.markdown("---")
