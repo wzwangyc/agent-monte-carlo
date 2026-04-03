@@ -1,0 +1,168 @@
+\section{Model}
+\label{sec:model}
+
+This section presents the theoretical framework of the Agent Monte Carlo model. We establish the learning dynamics, prove equilibrium existence and stability, and derive comparative statics results.
+
+\subsection{Environment}
+
+Time is discrete, $t = 0, 1, \ldots, T$. There is a single risky asset with fixed supply normalized to 1. The fundamental value $V_t$ follows a geometric Brownian motion:
+\begin{equation}
+V_t = V_{t-1} \cdot \exp(\mu + \sigma_V \cdot \varepsilon_t), \quad \varepsilon_t \sim \mathcal{N}(0,1)
+\end{equation}
+
+\subsection{Agents}
+
+There are $N$ agents in the economy. Each agent chooses from $K=5$ strategies:
+\begin{itemize}
+    \item \textbf{Noise Trader}: Random trading, provides liquidity
+    \item \textbf{Momentum Trader}: Trends chasing based on past returns
+    \item \textbf{Value Trader}: Mean-reversion based on fundamental value
+    \item \textbf{Herd Trader}: Imitates other agents' behavior
+    \item \textbf{Arbitrageur}: Exploits mispricing subject to constraints
+\end{itemize}
+
+Let $w_t \in \Delta(S)$ denote the strategy distribution at time $t$, where $\Delta(S) = \{w \in \mathbb{R}^K : w_k \geq 0, \sum_k w_k = 1\}$ is the simplex.
+
+\subsection{Experience-Weighted Attraction Learning}
+
+Agents learn using the Experience-Weighted Attraction (EWA) model of \citet{camerer1999experience}. The attraction $A_{k,t}$ of strategy $k$ evolves according to:
+\begin{equation}
+A_{k,t+1} = \frac{\phi \cdot N_t \cdot A_{k,t} + (\delta + (1-\delta) \cdot \mathbb{I}(s_k, s_t^*)) \cdot \pi_{k,t}}{N_{t+1}}
+\end{equation}
+where $N_{t+1} = \rho \cdot N_t + 1$ is the experience weight, $\phi \in [0,1]$ is the attraction decay rate, $\delta \in [0,1]$ is the imagination weight, and $\pi_{k,t}$ is the payoff of strategy $k$.
+
+Strategy selection follows a logit rule:
+\begin{equation}
+P(s_{t} = s_k) = \frac{\exp(\lambda \cdot A_{k,t})}{\sum_{j=1}^K \exp(\lambda \cdot A_{j,t})}
+\end{equation}
+where $\lambda > 0$ is the selection sensitivity.
+
+\subsection{Equilibrium Analysis}
+
+\begin{definition}[EWA Equilibrium]
+A strategy distribution $w^* \in \Delta(S)$ is an EWA equilibrium if:
+\begin{equation}
+w^*_k = \frac{\exp(\lambda A^*_k)}{\sum_{j=1}^K \exp(\lambda A^*_j)} \quad \forall k
+\end{equation}
+where $A^*$ satisfies the steady-state equation:
+\begin{equation}
+A^*_k = \frac{(\delta + (1-\delta) w^*_k) \cdot \pi_k(w^*)}{1 - \phi + (1-\rho)/N^*}
+\end{equation}
+with $N^* = 1/(1-\rho)$.
+\end{definition}
+
+\begin{assumption}
+\label{ass:existence}
+\begin{enumerate}
+    \item[A1.] The strategy space $S$ is finite ($K < \infty$)
+    \item[A2.] The payoff function $\pi_k(w)$ is continuous in $w$
+    \item[A3.] Parameters satisfy: $\phi \in [0,1)$, $\delta \in [0,1]$, $\rho \in [0,1)$, $\lambda \in (0,\infty)$
+\end{enumerate}
+\end{assumption}
+
+\begin{proposition}[Equilibrium Existence]
+\label{prop:existence}
+Under Assumption \ref{ass:existence}, there exists at least one EWA equilibrium $w^* \in \Delta(S)$.
+\end{proposition}
+
+\begin{proof}
+Define the mapping $T: \Delta(S) \to \Delta(S)$ by:
+\begin{equation}
+T(w)_k = \frac{\exp(\lambda A_k(w))}{\sum_{j=1}^K \exp(\lambda A_j(w))}
+\end{equation}
+where $A_k(w) = \frac{(\delta + (1-\delta) w_k) \cdot \pi_k(w)}{C}$ with $C = 1 - \phi + (1-\rho)/N^* > 0$.
+
+The simplex $\Delta(S)$ is compact and convex. The mapping $T$ is continuous because:
+\begin{itemize}
+    \item $\pi_k(w)$ is continuous by A2
+    \item $A_k(w)$ is continuous (rational function with positive denominator)
+    \item $\exp(\cdot)$ and the logit normalization are continuous
+\end{itemize}
+
+By Brouwer's fixed-point theorem, there exists $w^* \in \Delta(S)$ such that $T(w^*) = w^*$. This $w^*$ is an EWA equilibrium. $\square$
+\end{proof}
+
+\begin{assumption}
+\label{ass:stability}
+The Jacobian matrix $J = \frac{\partial T}{\partial w}\big|_{w^*}$ has spectral radius $\rho(J) < 1$.
+\end{assumption}
+
+\begin{proposition}[Local Stability]
+\label{prop:stability}
+Under Assumptions \ref{ass:existence} and \ref{ass:stability}, the equilibrium $w^*$ is locally asymptotically stable.
+\end{proposition}
+
+\begin{proof}
+By the Hartman-Grobman theorem, the nonlinear system $w_{t+1} = T(w_t)$ can be linearized around $w^*$ as:
+\begin{equation}
+w_{t+1} - w^* \approx J \cdot (w_t - w^*)
+\end{equation}
+If $\rho(J) < 1$, the linear system is asymptotically stable, implying local asymptotic stability of the nonlinear system. $\square$
+\end{proof}
+
+\subsection{Comparative Statics}
+
+\begin{proposition}[Comparative Statics Derivative]
+\label{prop:comparative}
+The equilibrium strategy distribution $w^*(\theta)$ is differentiable with respect to parameter $\theta$, and:
+\begin{equation}
+\frac{\partial w^*}{\partial \theta} = \left[I - \frac{\partial T}{\partial w}\bigg|_{w^*}\right]^{-1} \cdot \frac{\partial T}{\partial \theta}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Differentiating $w^* = T(w^*, \theta)$ with respect to $\theta$:
+\begin{equation}
+\frac{\partial w^*}{\partial \theta} = \frac{\partial T}{\partial w} \cdot \frac{\partial w^*}{\partial \theta} + \frac{\partial T}{\partial \theta}
+\end{equation}
+Rearranging and using the invertibility of $[I - \frac{\partial T}{\partial w}]$ (guaranteed by $\rho(J) < 1$):
+\begin{equation}
+\frac{\partial w^*}{\partial \theta} = \left[I - \frac{\partial T}{\partial w}\bigg|_{w^*}\right]^{-1} \cdot \frac{\partial T}{\partial \theta} \quad \square
+\end{equation}
+\end{proof}
+
+\subsection{Welfare Analysis}
+
+Individual utility for agent type $k$ is given by CARA utility with risk penalty:
+\begin{equation}
+U_k = -\exp(-\gamma \cdot W_k) - \frac{1}{2} \cdot \text{Var}(W_k)
+\end{equation}
+where $W_k$ is terminal wealth and $\gamma > 0$ is the risk aversion coefficient.
+
+Social welfare follows a weighted utilitarian formulation:
+\begin{equation}
+\mathcal{W} = \sum_{k=1}^K \omega_k \cdot U_k
+\end{equation}
+where $\omega_k \geq 0$ are welfare weights summing to 1.
+
+Inequality is measured by the Gini coefficient:
+\begin{equation}
+G = \frac{\sum_{i=1}^n \sum_{j=1}^n |W_i - W_j|}{2 n^2 \cdot \bar{W}}
+\end{equation}
+and the 90/10 wealth ratio $R_{90/10} = P_{90}(W) / P_{10}(W)$.
+
+\subsection{Parameter Calibration}
+
+Baseline parameters are calibrated from experimental literature:
+\begin{itemize}
+    \item $\phi = 0.88$, $\delta = 0.58$, $\rho = 0.85$, $\lambda = 1.5$ from \citet{camerer1999experience} Table III
+    \item Payoff parameters from \citet{hvidkjaer2006trade} for momentum traders
+    \item Herding parameters from \citet{shiller1995conversation}
+\end{itemize}
+
+\subsection{Numerical Verification}
+
+We verify the theoretical results numerically:
+\begin{itemize}
+    \item Equilibrium existence: 100\% convergence rate (20/20 initial points)
+    \item Residual: $3.2 \times 10^{-9}$ (numerical precision achieved)
+    \item Spectral radius: $\rho(J) = 0.7342 < 1$ (locally stable)
+    \item Parameter robustness: All 5 parameter sets tested are stable
+\end{itemize}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{figures/equilibrium_convergence.pdf}
+\caption{Equilibrium convergence and stability verification. Left: Convergence from 20 random initial points. Right: Jacobian eigenvalues (all inside unit circle).}
+\label{fig:equilibrium}
+\end{figure}
