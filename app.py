@@ -7,6 +7,8 @@ Full Visualization: Agent MC vs Traditional MC Comparison
 
 Usage:
     streamlit run app.py
+
+Version: 2026-04-03 - Fixed Plotly rgba colors
 """
 
 import streamlit as st
