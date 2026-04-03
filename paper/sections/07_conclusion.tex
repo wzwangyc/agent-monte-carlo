@@ -1,0 +1,166 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+This paper presents Agent Monte Carlo, a simulation framework that combines the computational efficiency of Monte Carlo methods with the behavioral richness of agent-based modeling. We establish theoretical foundations, calibrate to 44 years of S\&P 500 data, and analyze policy implications.
+
+\subsection{Summary of Contributions}
+
+\textbf{Theoretical contributions:}
+
+\begin{enumerate}
+    \item We prove \textbf{equilibrium existence} using Brouwer's fixed-point theorem.
+    
+    \item We establish \textbf{local stability} conditions using Jacobian eigenvalue analysis.
+    
+    \item We derive \textbf{comparative statics} formulas for policy analysis.
+    
+    \item We provide the missing theoretical foundation for agent-based finance.
+\end{enumerate}
+
+\textbf{Empirical contributions:}
+
+\begin{enumerate}
+    \item We calibrate the model to 44 years of S\&P 500 data (1980--2024).
+    
+    \item The model reproduces five key stylized facts:
+    \begin{itemize}
+        \item Fat tails (kurtosis $\approx 19.2$)
+        \item Volatility clustering (ACF(1) $\approx 0.21$)
+        \item Crash frequency ($\approx 3.2\%$ per year)
+        \item Negative skewness ($\approx -0.52$)
+        \item Volume-volatility correlation ($\approx 0.6$)
+    \end{itemize}
+    
+    \item Out-of-sample validation confirms generalizability.
+\end{enumerate}
+
+\textbf{Policy contributions:}
+
+\begin{enumerate}
+    \item We analyze seven regulatory policies.
+    
+    \item We rank policies by welfare effects.
+    
+    \item We identify the optimal policy combination:
+    \begin{itemize}
+        \item Moderate leverage limits (5--10x)
+        \item Maintain short-sale mechanisms
+        \item Promote information dissemination
+        \item Monitor herding behavior
+    \end{itemize}
+    
+    \item The optimal combination can increase welfare by 5.4\% and reduce crash risk by 70\%.
+\end{enumerate}
+
+\subsection{Key Insights}
+
+\textbf{Insight 1: Markets are complex adaptive systems.}
+
+Traditional Monte Carlo assumes markets are mechanical processes. Our framework recognizes that markets are complex adaptive systems where:
+\begin{itemize}
+    \item Heterogeneous agents interact
+    \item Agents learn from experience
+    \item Macro phenomena emerge from micro interactions
+    \item Fat tails and crashes are features, not bugs
+\end{itemize}
+
+\textbf{Insight 2: Theory and empirics can coexist.}
+
+Agent-based models are often criticized for being ``black boxes.'' We show that:
+\begin{itemize}
+    \item Equilibrium can be proved rigorously
+    \item Stability can be analyzed mathematically
+    \item Parameters can be calibrated to data
+    \item Results can be validated out-of-sample
+\end{itemize}
+
+\textbf{Insight 3: Policy matters.}
+
+Regulatory policies have significant welfare effects:
+\begin{itemize}
+    \item Short-sale bans: -1.8\% welfare (worst)
+    \item Leverage caps 10x: +2.3\% welfare (best)
+    \item The difference is economically significant
+\end{itemize}
+
+\subsection{Limitations and Future Research}
+
+\textbf{Limitations:}
+
+\begin{enumerate}
+    \item \textbf{Single market}: We calibrate to S\&P 500 only. Cross-market validation would strengthen the results.
+    
+    \item \textbf{Simplified microstructure}: We use a market maker model, not a full order book.
+    
+    \item \textbf{Parameter uncertainty}: While we use priors from the literature, there is uncertainty.
+    
+    \item \textbf{No general equilibrium}: We don't model feedback to the real economy.
+\end{enumerate}
+
+\textbf{Future research directions:}
+
+\begin{enumerate}
+    \item \textbf{Cross-market calibration}: Calibrate to multiple markets (equities, bonds, FX, crypto).
+    
+    \item \textbf{More realistic microstructure}: Implement full order book with limit orders.
+    
+    \item \textbf{Bayesian calibration}: Use MCMC to obtain posterior distributions.
+    
+    \item \textbf{General equilibrium}: Link to macroeconomic models.
+    
+    \item \textbf{Machine learning integration}: Use neural networks for agent decision-making.
+    
+    \item \textbf{Real-time monitoring}: Develop early warning systems for systemic risk.
+\end{enumerate}
+
+\subsection{Practical Implications}
+
+\textbf{For regulators:}
+
+\begin{itemize}
+    \item Use Agent MC for stress testing
+    \item Evaluate ``what-if'' scenarios
+    \item Monitor herding and systemic risk
+    \item Implement optimal policy combination
+\end{itemize}
+
+\textbf{For practitioners:}
+
+\begin{itemize}
+    \item Use Agent MC for risk management
+    \item Understand market dynamics
+    \item Avoid crowded trades
+    \item Maintain diverse strategy pool
+\end{itemize}
+
+\textbf{For researchers:}
+
+\begin{itemize}
+    \item Use our framework as a starting point
+    \item Extend to new applications
+    \item Improve theoretical foundations
+    \item Validate with new data
+\end{itemize}
+
+\subsection{Final Thoughts}
+
+This paper demonstrates that agent-based models can be rigorous, empirically validated, and policy-relevant. We invite researchers and practitioners to use our framework in their own work.
+
+The key takeaway is simple: \textbf{markets are complex adaptive systems, not mechanical processes}. Agent Monte Carlo provides a rigorous, empirically validated framework for understanding and analyzing these systems.
+
+We hope this framework contributes to better understanding of financial markets and better policy design for financial stability.
+
+\subsection*{Data and Code Availability}
+
+All code and data are available at:
+\begin{itemize}
+    \item GitHub: \url{https://github.com/wzwangyc/agent-monte-carlo}
+    \item Data: S\&P 500 data from Yahoo Finance (\textasciicircum GSPC)
+    \item Code: Python 3.11+, open-source (MIT license)
+\end{itemize}
+
+Replication instructions are provided in the README file.
+
+\subsection*{Acknowledgments}
+
+We thank [colleagues] for helpful comments. All errors are our own. This research was supported by [funding agencies].
